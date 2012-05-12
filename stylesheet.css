@@ -27,3 +27,16 @@ body {
 	height:600px;
 	background:#000;
 }
+
+#main
+{
+	list-style:none;
+}
+
+#main li
+{
+	float:left;
+	margin:5px;
+	padding:10px;
+	border:1px solid #000;
+}
