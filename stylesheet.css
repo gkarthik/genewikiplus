@@ -1,0 +1,29 @@
+body {
+	background:#e6e6e6;	
+}
+#wrapper
+{
+	width:1000px;
+	margin:0 auto;
+}
+
+#leftsidebar
+{
+	width:200px;
+	float:left;
+	min-height:400px;
+}
+
+#content
+{
+	float:right;
+	width:800px;
+	min-height:400px;
+}
+
+#networkview
+{
+	width:800px;
+	height:600px;
+	background:#000;
+}
