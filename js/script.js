@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function(){
-	
+	generate_disease();
 function generate_disease()
 	{
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[Category:Human_proteins]][[is_associated_with::hemolytic%20anemia]]&po=HasSNP&format=json&callback=?", function(data) {
@@ -57,12 +57,12 @@ function generate_disease()
                 	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1"});
                 	edgecounter++;
 					counter++;
-					if(data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"] instanceof Array)
+					if(data["ask"]["results"]["items"][temp]["properties"]["hassnp"] instanceof Array)
 					{
 	
-	            	for(var temp_disease in data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"])
+	            	for(var temp_disease in data["ask"]["results"]["items"][temp]["properties"]["hassnp"])
                 	{
-                	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"][temp_disease]});
+                	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["properties"]["hassnp"][temp_disease]});
                 	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:String(secondary_centre)});
                 	edgecounter++;
                 	counter++;	
@@ -70,7 +70,7 @@ function generate_disease()
 					}
 					else
 					{
-	            	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"]});
+	            	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["properties"]["hassnp"]});
                 	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:String(secondary_centre)});
                 	edgecounter++;
                 	counter++;	
