@@ -1,9 +1,22 @@
 /**
- * @author grrao
+ * @author gkarthik
  */
 
 $(document).ready(function(){
 var global_vis;	
+	$("#network_view").live('click',function(){
+		$("#export_options").fadeIn();
+		$("#networkview").fadeIn();
+		$("#tabulardata").css({'display':'none'});
+		
+	});
+	
+	$("#tabular_view").live('click',function(){
+		$("#export_options").fadeOut();
+		$("#networkview").css({'display':'none'});
+		$("#tabulardata").fadeIn();
+	});
+	
 	$("#export_options ul li").click(function(){
 		if(this.id=="pdf")
 		{
@@ -64,6 +77,7 @@ var global_vis;
 		if($("#query_title").html()=="SNP-Gene-Disease")
 		{
 			generate_snp($("#query_text").val());
+			$("#view_choose").fadeIn();
 			$("#export_options").fadeIn();
 			$("#overlay").fadeOut();
 			$("#litebox").fadeOut();
@@ -72,6 +86,7 @@ var global_vis;
 		if($("#query_title").html()=="Gene-SNP-Disease")
 		{
 			generate_gene($("#query_text").val());
+			$("#view_choose").fadeIn();
 			$("#export_options").fadeIn();
 			$("#overlay").fadeOut();
 			$("#litebox").fadeOut();
@@ -81,6 +96,7 @@ var global_vis;
 		if($("#query_title").html()=="Disease-Gene-SNP")
 		{
 			generate_disease($("#query_text").val());
+			$("#view_choose").fadeIn();
 			$("#export_options").fadeIn();
 			$("#overlay").fadeOut();
 			$("#litebox").fadeOut();
@@ -89,8 +105,8 @@ var global_vis;
 		
 		if($("#query_title").html()=="Gene-Disease")
 		{
-			
 			generate_gene_disease($("#query_text").val());
+			$("#view_choose").fadeIn();
 			$("#export_options").fadeIn();
 			$("#overlay").fadeOut();
 			$("#litebox").fadeOut();
@@ -102,8 +118,33 @@ var global_vis;
 		$("#networkview").html("Loading...");
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+gene_disease_query+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
 		draw_gene_disease_network(data);
+		table_gene_disease(data);
 	});	
 	}
+	
+	function table_gene_disease(data)
+	{
+		 var grid;
+  var columns = [
+    {id:"rowno",name:"No",field:"rowno"},
+    {id: "title", name: "Title", field: "title", width: 200},
+    {id: "disease", name: "Disease", field: "disease", width: 200},
+  ];
+
+  var options = {
+    enableCellNavigation: true,
+    enableColumnReorder: false
+  };
+
+    var data_for_grid = [];
+    var counter=0;
+    for (var temp in data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"]) 
+    {
+      data_for_grid[counter] = {rowno:(counter+1),title: data["ask"]["results"]["items"][0]["title"]["mTextform"],disease: data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"][temp]};
+      counter++;
+    }
+    grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
+  }
 	
 	function draw_gene_disease_network(data)
 	{
@@ -185,7 +226,49 @@ function generate_disease(disease_query)
 		$("#networkview").html("Loading...");
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[Category:Human_proteins]][[is_associated_with::"+disease_query+"]]&po=HasSNP&format=json&callback=?", function(data) {
 		draw_disease_network(data);
+		table_disease(data);
 	});	
+	}
+	
+	function table_disease(data)
+	{
+				 var grid;
+  var columns = [
+    {id:"rowno",name:"No",field:"rowno"},
+    {id: "gene", name: "Genes", field: "gene", width: 200},
+    {id: "snp", name: "SNP", field: "snp", width: 200},
+  ];
+
+  var options = {
+    editable: true,
+  enableAddRow: true,
+  enableCellNavigation: true,
+  asyncEditorLoading: true,
+  forceFitColumns: false,
+  topPanelHeight: 25
+  };
+
+    var data_for_grid = [];
+    var counter=0;
+    for (var temp in data["ask"]["results"]["items"]) 
+    {
+    	if(data["ask"]["results"]["items"][temp]["properties"]["hassnp"] instanceof Array)
+    	{
+    		var SNP_data="";
+for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["hassnp"])
+     {
+     	SNP_data+=data["ask"]["results"]["items"][temp]["properties"]["hassnp"][temp2]+'\n';
+     }    		
+    	}
+    	else
+    	{
+    		SNP_data=data["ask"]["results"]["items"][temp]["properties"]["hassnp"];
+    	}
+     
+      data_for_grid[counter] = {rowno:(counter+1),gene: data["ask"]["results"]["items"][temp]["title"]["mTextform"],snp:SNP_data};
+      counter++;
+    }
+    grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
 	}
 	
 	function draw_disease_network(data)
@@ -274,8 +357,53 @@ function generate_disease(disease_query)
 		$("#networkview").html("Loading...");
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+gene_query+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
 		draw_gene_network(data);
+		table_gene(data);
 	});	
 	}
+	
+	function table_gene(data)
+	{
+		var grid;
+  var columns = [
+    {id:"rowno",name:"No",field:"rowno"},
+    {id: "gene", name: "SNP", field: "gene", width: 200},
+    {id: "snp", name: "Disease", field: "snp", width: 200},
+  ];
+
+  var options = {
+    editable: true,
+  enableAddRow: true,
+  enableCellNavigation: true,
+  asyncEditorLoading: true,
+  forceFitColumns: false,
+  topPanelHeight: 25
+  };
+
+    var data_for_grid = [];
+    var counter=0;
+    for (var temp in data["ask"]["results"]["items"]) 
+    {
+    	if(data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"] instanceof Array)
+    	{
+    		var SNP_data="";
+for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"])
+     {
+     	SNP_data+=data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"][temp2]+'\n';
+     }    		
+    	}
+    	else
+    	{
+    		SNP_data=data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"];
+    	}
+     
+      data_for_grid[counter] = {rowno:(counter+1),gene: data["ask"]["results"]["items"][temp]["title"]["mTextform"],snp:SNP_data};
+      counter++;
+    }
+    grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
+
+	}
+	
+	
 	
 	function draw_gene_network(data)
 	{
@@ -364,7 +492,49 @@ function generate_disease(disease_query)
 		$("#networkview").html("Loading...");
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[HasSNP::"+snp_query+"]]&po=Is+associated+with+disease&format=json&callback=?", function(data) {
 		draw_snp_network(data);
+		table_snp(data);
 	});	
+	}
+	
+	function table_snp(data)
+	{
+		var grid;
+  var columns = [
+    {id:"rowno",name:"No",field:"rowno"},
+    {id: "gene", name: "SNP", field: "gene", width: 200},
+    {id: "snp", name: "Disease", field: "snp", width: 200},
+  ];
+
+  var options = {
+    editable: true,
+  enableAddRow: true,
+  enableCellNavigation: true,
+  asyncEditorLoading: true,
+  forceFitColumns: false,
+  topPanelHeight: 25
+  };
+
+    var data_for_grid = [];
+    var counter=0;
+    var temp=0;
+    	if(data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"] instanceof Array)
+    	{
+    		var SNP_data="";
+for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"])
+     {
+     	SNP_data+=data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"][temp2]+'\n';
+     }    		
+    	}
+    	else
+    	{
+    		SNP_data=data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"];
+    	}
+     
+      data_for_grid[counter] = {rowno:(counter+1),gene: data["ask"]["results"]["items"][temp]["title"]["mTextform"],snp:SNP_data};
+      counter++;
+    
+    grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
+
 	}
 	
 	function draw_snp_network(data)

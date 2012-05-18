@@ -17,6 +17,8 @@ body {
 {
 	display:none;
 	text-align:center;
+	float:left;
+	width:200px;
 }
 #export_options ul
 {
@@ -73,10 +75,46 @@ body {
 	min-height:400px;
 }
 
+#view_choose
+{
+	float:left;
+	width:800px;
+	height:50px;
+	display:none;
+}
+
+#view_choose ul
+{
+	list-style:none;
+}
+
+#view_choose ul li
+{
+	float:left;
+	margin:5px;
+	cursor:pointer;
+}
+
+#view_choose ul li:hover
+{
+	background:#000;
+	color:#FFF;
+}
+
 #networkview
 {
+	margin-top:50px;
 	width:800px;
 	height:600px;
+	
+}
+
+#tabulardata
+{
+	margin-top:50px;
+	width:800px;
+	height:600px;
+	display:none;
 }
 
 #main

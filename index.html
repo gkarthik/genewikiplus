@@ -4,11 +4,17 @@
     <head>
         <title>Gene Wiki Plus</title>
         <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.event.drag-2.0.min.js"></script>
+        <script type="text/javascript" src="js/jquery.event.drop-2.0.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+        <script type="text/javascript" src="js/slick.core.js"></script>
+        <script type="text/javascript" src="js/slick.grid.js"></script>
         <script type="text/javascript" src="js/min/json2.min.js"></script>        
         <script type="text/javascript" src="js/min/AC_OETags.min.js"></script>        
         <script type="text/javascript" src="js/min/cytoscapeweb.min.js"></script>        
 		<script type="text/javascript" src="js/script.js"></script>
 		<link href="stylesheet.css" rel="stylesheet" />
+		<link href="slick.grid.css" rel="stylesheet" />
     </head>
     
     <body>
@@ -20,6 +26,7 @@
     			<input type="text" id="query_text" /><input type="button" value="Search" id="query_button" />
     			
     		</div>
+    		
     		<div id="leftsidebar">
     			<ul id="main">
     				<li id="snp">SNP-Gene-Disease</li>
@@ -38,6 +45,12 @@
     			</div>
     		</div>
     		<div id="content">
+    			<div id="view_choose">
+    				<ul>
+    					<li id="network_view">Network</li>
+    					<li id="tabular_view">Tabular</li>
+    				</ul>
+    			</div>
     			<div id="tabulardata"></div>
     			<div id="networkview">Query for Genes,SNPs and Diseases from the left sidebar. The network will be generated here.</div>
     		</div>
