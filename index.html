@@ -28,12 +28,18 @@
     		</div>
     		
     		<div id="leftsidebar">
+    			<!--
     			<ul id="main">
     				<li id="snp">SNP-Gene-Disease</li>
     				<li id="gene">Gene-SNP-Disease</li>
     				<li id="disease">Disease-Gene-SNP</li>
     				<li id="gene_disease">Gene-Disease</li>
+    				
     			</ul>
+    			-->
+    			Omni Box
+    			Enter gene/SNP/Disease.
+    			<input type="text" id="omni_query" /><input type="submit" id="omni_submit" value="Query" />
     			<div id="export_options">
     				Export network as
     				<ul>
@@ -46,13 +52,14 @@
     		</div>
     		<div id="content">
     			<div id="view_choose">
-    				<ul>
+    				<ul id="view_choose_list">
     					<li id="network_view">Network</li>
     					<li id="tabular_view">Tabular</li>
     				</ul>
     			</div>
     			<div id="tabulardata"></div>
     			<div id="networkview">Query for Genes,SNPs and Diseases from the left sidebar. The network will be generated here.</div>
+    			<div id="networkview2">Gene-Disease network</div>
     		</div>
     	</div>
     </body>

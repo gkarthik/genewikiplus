@@ -106,7 +106,14 @@ body {
 	margin-top:50px;
 	width:800px;
 	height:600px;
-	
+}
+
+#networkview2
+{
+	margin-top:50px;
+	width:800px;
+	height:600px;
+	display:none;
 }
 
 #tabulardata

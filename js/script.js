@@ -8,14 +8,22 @@ var global_vis;
 		$("#export_options").fadeIn();
 		$("#networkview").fadeIn();
 		$("#tabulardata").css({'display':'none'});
-		
+		$("#networkview2").css({'display':'none'});
 	});
 	
 	$("#tabular_view").live('click',function(){
 		$("#export_options").fadeOut();
 		$("#networkview").css({'display':'none'});
+		$("#networkview2").css({'display':'none'});
 		$("#tabulardata").fadeIn();
 	});
+	
+	$("#gene_disease_network_display").live('click',function(){
+		$("#export_options").fadeIn();
+		$("#networkview").css({'display':'none'});
+		$("#tabulardata").css({'display':'none'});
+		$("#networkview2").fadeIn();
+	})
 	
 	$("#export_options ul li").click(function(){
 		if(this.id=="pdf")
@@ -72,6 +80,38 @@ var global_vis;
 		}
 	});
 	
+	$("#omni_submit").click(function(){
+		$("#networkview").html("Loading...");
+		$("#view_choose_list").html('<li id="network_view">Network</li><li id="tabular_view">Tabular</li>');
+	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&format=json&callback=?", function(data) {
+		
+		if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Human_proteins')
+		{
+			generate_gene($("#omni_query").val());
+			generate_gene_disease($("#omni_query").val());
+			$("#view_choose").fadeIn();
+			$("#export_options").fadeIn();
+			$("#networkview").html("Loading network about gene "+$("#omni_query").val()+"...");
+			$("#view_choose_list").append("<li id='gene_disease_network_display'>Gene->Disease Network</li>");
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Is_a_snp')
+		{
+			generate_snp($("#omni_query").val());
+			$("#view_choose").fadeIn();
+			$("#export_options").fadeIn();
+			$("#networkview").html("Loading network about SNP "+$("#omni_query").val()+"...");
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='All_articles_with_dead_external_links')
+		{
+			generate_disease($("#omni_query").val());
+			
+			$("#view_choose").fadeIn();
+			$("#export_options").fadeIn();			
+			$("#networkview").html("Loading network about disease "+$("#omni_query").val()+"...");
+		}
+	});		
+	});
+	
 	$("#query_button").click(function(){
 		
 		if($("#query_title").html()=="SNP-Gene-Disease")
@@ -115,7 +155,6 @@ var global_vis;
 	});
 	function generate_gene_disease(gene_disease_query)
 	{
-		$("#networkview").html("Loading...");
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+gene_disease_query+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
 		draw_gene_disease_network(data);
 		table_gene_disease(data);
@@ -148,7 +187,7 @@ var global_vis;
 	
 	function draw_gene_disease_network(data)
 	{
-			var div_id = "networkview";
+			var div_id = "networkview2";
                 var network_json = {
                         dataSchema: {
                     		nodes: [ { name: "label", type: "string" }                   		      
@@ -223,7 +262,7 @@ var global_vis;
 	}
 function generate_disease(disease_query)
 	{
-		$("#networkview").html("Loading...");
+		
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[Category:Human_proteins]][[is_associated_with::"+disease_query+"]]&po=HasSNP&format=json&callback=?", function(data) {
 		draw_disease_network(data);
 		table_disease(data);
@@ -354,7 +393,7 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["hassnp"])
 	}	
 	function generate_gene(gene_query)
 	{
-		$("#networkview").html("Loading...");
+		
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+gene_query+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
 		draw_gene_network(data);
 		table_gene(data);
@@ -400,7 +439,6 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
       counter++;
     }
     grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
-
 	}
 	
 	
@@ -489,8 +527,7 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
 	
 	function generate_snp(snp_query)
 	{
-		$("#networkview").html("Loading...");
-	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[HasSNP::"+snp_query+"]]&po=Is+associated+with+disease&format=json&callback=?", function(data) {
+			$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[HasSNP::"+snp_query+"]]&po=Is+associated+with+disease&format=json&callback=?", function(data) {
 		draw_snp_network(data);
 		table_snp(data);
 	});	
@@ -590,7 +627,7 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                 }
                      var layout = {
   								  name:    "Radial",
-    							  options: { radius: 80 }
+    							  options: { radius: 150 }
 									};              
                 var options = {
                     swfPath: "swf/CytoscapeWeb",
