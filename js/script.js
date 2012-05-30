@@ -256,9 +256,65 @@ var global_vis;
                     flashInstallerPath: "swf/playerProductInstall"
                 };
                 
+                 var counter_per_node=0;
+                var counter_for_deletion=0;
+                var repeated_node="";
+                var unique_node="";
+                for(var temp_node in network_json["data"]["nodes"])
+                {
+                	counter_per_node=0;
+                	for(var temp_node2 in network_json["data"]["nodes"])
+                	{
+                		
+                		if(network_json["data"]["nodes"][temp_node]["label"]==network_json["data"]["nodes"][temp_node2]["label"])
+                		{
+                			counter_per_node++;
+                		}
+                	}
+                	counter_for_deletion=0;
+                	
+                	if(counter_per_node>1)
+                	{
+                		
+                		repeated_node=network_json["data"]["nodes"][temp_node]["id"];
+                		
+                		for(var delete_temp in network_json["data"]["nodes"])
+                		{
+                			
+                			if(typeof network_json["data"]["nodes"][delete_temp]["id"] === "undefined")
+                			{
+                				
+                			}	
+                			else
+                			{                			
+                			if(network_json["data"]["nodes"][delete_temp]["label"]==network_json["data"]["nodes"][temp_node]["label"])
+                			{
+                			counter_for_deletion++;	                			
+                			if(counter_for_deletion>1)
+                			{
+                				//delete [delete_temp]["label"]="To be deleted";
+                				for(var delete_edge in network_json["data"]["edges"])
+                				{            					
+                					if(network_json["data"]["nodes"][delete_temp]["id"]==network_json["data"]["edges"][delete_edge]["target"])
+                					{
+                						network_json["data"]["edges"][delete_edge]["target"]=repeated_node;
+                					}
+                				}
+                				network_json["data"]["nodes"].splice(delete_temp, 1);	                				
+                			}
+                			
+                			}
+                			}	
+                		}
+                		
+                	}
+                	
+                }
+                
                 var vis = new org.cytoscapeweb.Visualization(div_id, options);
                 global_vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });	
+                
 	}
 function generate_disease(disease_query)
 	{
@@ -385,6 +441,61 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["hassnp"])
                     swfPath: "swf/CytoscapeWeb",
                     flashInstallerPath: "swf/playerProductInstall"
                 };
+                
+                 var counter_per_node=0;
+                var counter_for_deletion=0;
+                var repeated_node="";
+                var unique_node="";
+                for(var temp_node in network_json["data"]["nodes"])
+                {
+                	counter_per_node=0;
+                	for(var temp_node2 in network_json["data"]["nodes"])
+                	{
+                		
+                		if(network_json["data"]["nodes"][temp_node]["label"]==network_json["data"]["nodes"][temp_node2]["label"])
+                		{
+                			counter_per_node++;
+                		}
+                	}
+                	counter_for_deletion=0;
+                	
+                	if(counter_per_node>1)
+                	{
+                		
+                		repeated_node=network_json["data"]["nodes"][temp_node]["id"];
+                		
+                		for(var delete_temp in network_json["data"]["nodes"])
+                		{
+                			
+                			if(typeof network_json["data"]["nodes"][delete_temp]["id"] === "undefined")
+                			{
+                				
+                			}	
+                			else
+                			{                			
+                			if(network_json["data"]["nodes"][delete_temp]["label"]==network_json["data"]["nodes"][temp_node]["label"])
+                			{
+                			counter_for_deletion++;	                			
+                			if(counter_for_deletion>1)
+                			{
+                				//delete [delete_temp]["label"]="To be deleted";
+                				for(var delete_edge in network_json["data"]["edges"])
+                				{            					
+                					if(network_json["data"]["nodes"][delete_temp]["id"]==network_json["data"]["edges"][delete_edge]["target"])
+                					{
+                						network_json["data"]["edges"][delete_edge]["target"]=repeated_node;
+                					}
+                				}
+                				network_json["data"]["nodes"].splice(delete_temp, 1);	                				
+                			}
+                			
+                			}
+                			}	
+                		}
+                		
+                	}
+                	
+                }
                 
                 var vis = new org.cytoscapeweb.Visualization(div_id, options);
                 global_vis=vis;
@@ -519,6 +630,61 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                     flashInstallerPath: "swf/playerProductInstall"
                 };
                 
+                 var counter_per_node=0;
+                var counter_for_deletion=0;
+                var repeated_node="";
+                var unique_node="";
+                for(var temp_node in network_json["data"]["nodes"])
+                {
+                	counter_per_node=0;
+                	for(var temp_node2 in network_json["data"]["nodes"])
+                	{
+                		
+                		if(network_json["data"]["nodes"][temp_node]["label"]==network_json["data"]["nodes"][temp_node2]["label"])
+                		{
+                			counter_per_node++;
+                		}
+                	}
+                	counter_for_deletion=0;
+                	
+                	if(counter_per_node>1)
+                	{
+                		
+                		repeated_node=network_json["data"]["nodes"][temp_node]["id"];
+                		
+                		for(var delete_temp in network_json["data"]["nodes"])
+                		{
+                			
+                			if(typeof network_json["data"]["nodes"][delete_temp]["id"] === "undefined")
+                			{
+                				
+                			}	
+                			else
+                			{                			
+                			if(network_json["data"]["nodes"][delete_temp]["label"]==network_json["data"]["nodes"][temp_node]["label"])
+                			{
+                			counter_for_deletion++;	                			
+                			if(counter_for_deletion>1)
+                			{
+                				//delete [delete_temp]["label"]="To be deleted";
+                				for(var delete_edge in network_json["data"]["edges"])
+                				{            					
+                					if(network_json["data"]["nodes"][delete_temp]["id"]==network_json["data"]["edges"][delete_edge]["target"])
+                					{
+                						network_json["data"]["edges"][delete_edge]["target"]=repeated_node;
+                					}
+                				}
+                				network_json["data"]["nodes"].splice(delete_temp, 1);	                				
+                			}
+                			
+                			}
+                			}	
+                		}
+                		
+                	}
+                	
+                }
+                
                 var vis = new org.cytoscapeweb.Visualization(div_id, options);
                 global_vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });	
@@ -634,9 +800,65 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                     flashInstallerPath: "swf/playerProductInstall"
                 };
                 
+                 var counter_per_node=0;
+                var counter_for_deletion=0;
+                var repeated_node="";
+                var unique_node="";
+                for(var temp_node in network_json["data"]["nodes"])
+                {
+                	counter_per_node=0;
+                	for(var temp_node2 in network_json["data"]["nodes"])
+                	{
+                		
+                		if(network_json["data"]["nodes"][temp_node]["label"]==network_json["data"]["nodes"][temp_node2]["label"])
+                		{
+                			counter_per_node++;
+                		}
+                	}
+                	counter_for_deletion=0;
+                	
+                	if(counter_per_node>1)
+                	{
+                		
+                		repeated_node=network_json["data"]["nodes"][temp_node]["id"];
+                		
+                		for(var delete_temp in network_json["data"]["nodes"])
+                		{
+                			
+                			if(typeof network_json["data"]["nodes"][delete_temp]["id"] === "undefined")
+                			{
+                				
+                			}	
+                			else
+                			{                			
+                			if(network_json["data"]["nodes"][delete_temp]["label"]==network_json["data"]["nodes"][temp_node]["label"])
+                			{
+                			counter_for_deletion++;	                			
+                			if(counter_for_deletion>1)
+                			{
+                				//delete [delete_temp]["label"]="To be deleted";
+                				for(var delete_edge in network_json["data"]["edges"])
+                				{            					
+                					if(network_json["data"]["nodes"][delete_temp]["id"]==network_json["data"]["edges"][delete_edge]["target"])
+                					{
+                						network_json["data"]["edges"][delete_edge]["target"]=repeated_node;
+                					}
+                				}
+                				network_json["data"]["nodes"].splice(delete_temp, 1);	                				
+                			}
+                			
+                			}
+                			}	
+                		}
+                		
+                	}
+                	
+                }
+                
                 var vis = new org.cytoscapeweb.Visualization(div_id, options);
                 global_vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });	
+                
 	}
 	            
 });
