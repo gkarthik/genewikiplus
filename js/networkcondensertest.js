@@ -73,7 +73,7 @@ $(document).ready(function(){
                 }
                      var layout = {
   								  name:    "ForceDirected",
-  								  options:{restLength :100}    					
+  								  options:{restLength :100,mass:0.5,gravitation:1}    					
 									};              
                 var options = {
                     swfPath: "swf/CytoscapeWeb",
