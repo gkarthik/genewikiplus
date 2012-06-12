@@ -16,23 +16,31 @@ $(document).ready(function(){
 	var div_id = "networkview";
                 var network_json = {
                         dataSchema: {
-                    		nodes: [ { name: "label", type: "string" }, { name:"type", type:"string"}          		      
+                    		nodes: [ { name: "label", type: "string" }, { name:"type", type:"string"}, { name:"weight", type:"integer"},
+                    		{ name:"to_show", type:"integer"}            		      
            		         	],
 							edges: [ { name: "label", type: "string" }						         
 							]
                     	},
                         data: { }
                 };
-                
+                var sizeMapper = { attrName: "weight",  minValue: 10, maxValue: 100, minAttrValue:10 };
+                var colorMapper = {attrName: "type",
+        						   entries: [ { attrValue: "q", value: "#ff0000" },
+                   							  { attrValue: "disease", value: "#00ff00" },
+                   							  { attrValue: "SNP", value: "yellow" } ]
+								  };
+				
                 var visual_style = {
                     global: {
                         backgroundColor: "#ABCFD6"
                     },
                     nodes: {
-                        shape: "RECTANGLE",
+                    	color:{discreteMapper: colorMapper},
+                        shape: { customMapper: { functionName: "customShape" }},
                         borderWidth: 3,
                         borderColor: "#ffffff",
-                        size: "auto"
+                        size: { customMapper: { functionName: "customSize" } }
                        }
                      };
   
@@ -73,7 +81,7 @@ $(document).ready(function(){
                 }
                      var layout = {
   								  name:    "ForceDirected",
-  								  options:{restLength :100,mass:0.5,gravitation:1}    					
+  								  options:{mass: 50,gravitation: -5,maxTime: 100000,minDistance: 20,maxDistance:40 }    					
 									};              
                 var options = {
                     swfPath: "swf/CytoscapeWeb",
@@ -93,6 +101,7 @@ $(document).ready(function(){
                 var reverse_filtered_nodes=new Array;
                 var node_to_be_numbered="";
                 var number_of_filterednodes=0;
+                var single_notfiltered=new Array;
                 for(var temp_node in network_json["data"]["nodes"])
                 {
                 	counter_per_node=0;
@@ -156,59 +165,153 @@ $(document).ready(function(){
                 		
                 	}
                 }
+                var remember_source="";
                 // Loop to remove all SNP s
                 for(var temp_node_disease in network_json["data"]["nodes"])
                 {
                 	if(network_json["data"]["nodes"][temp_node_disease]["type"]=="disease")
                 	{
+                		remember_source="none";
                 		number_of_filterednodes=0;
                 		for(var temp_node_filtered in network_json["data"]["edges"])
                 		{
                 			if(network_json["data"]["edges"][temp_node_filtered]["target"]==network_json["data"]["nodes"][temp_node_disease]["id"])
                 			{
-                				filtered_nodes.push(network_json["data"]["edges"][temp_node_filtered]["source"]);
-                				number_of_filterednodes++;			
+                				if(number_of_filterednodes>1)
+                				{
+                					remember_source="none";
+                					
+                				}
+                				else if(number_of_filterednodes==0)
+                				{
+                					remember_source=network_json["data"]["edges"][temp_node_filtered]["source"];
+                				}
+                					filtered_nodes.push(network_json["data"]["edges"][temp_node_filtered]["source"]);
+                				number_of_filterednodes++;
                 			}
                 		}
-                		network_json["data"]["nodes"].push({id:String(counter),label:"SNP("+number_of_filterednodes+")",type:"SNPcount"+network_json["data"]["nodes"][temp_node_disease]["id"]});
-                		network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
-                		network_json["data"]["edges"].push({id:String(edgecounter),source:String(counter),target:network_json["data"]["nodes"][temp_node_disease]["id"]});
+                		if(number_of_filterednodes>1)
+                		{
+                			network_json["data"]["nodes"].push({id:String(counter),label:"SNP("+number_of_filterednodes+")",to_show:1,type:"SNPcount"+network_json["data"]["nodes"][temp_node_disease]["id"],weight:number_of_filterednodes});
+	                		network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
+	                		edgecounter++;
+    	            		network_json["data"]["edges"].push({id:String(edgecounter),source:String(counter),target:network_json["data"]["nodes"][temp_node_disease]["id"]});	
+                		}
+                		else if(number_of_filterednodes==1)
+                		{
+                			
+                			single_notfiltered.push(remember_source);
+                		}
+        				edgecounter++;
                 		counter++;
                 	}
                 }
                 
-                /*var change_temp=[];
-                for(var rearrange_temp in network_json["data"]["edges"])
-                {
-                	for(var rearrange_temp2 in network_json["data"]["edges"])
-                	{
-                		if(network_json["data"]["nodes"][rearrange_temp]["target"]==network_json["data"]["nodes"][rearrange_temp2]["target"])
-                		{
-                			 for()
-                			 {
-                			 		
-                			 }
-                			 change_temp=network_json["data"]["nodes"][rearrange_temp]["target"]
-                			 data.items.splice(2, 0,{id: "7", name: "Douglas Adams", type: "comedy"});
-                		}
-                	}	
-                }*/
-              
-                var vis = new org.cytoscapeweb.Visualization(div_id, options); 
+                  var vis = new org.cytoscapeweb.Visualization(div_id, options); 
+                  vis["customSize"] = function (data) {
+    								   if((data["type"]!="q")&&(data["type"]!="disease")&&(data["type"]!="SNP"))
+    								   {
+    								   		var size = Math.round(3.2*data["weight"]);
+    								   		if(data["weight"]<8)
+    								   		{
+    								   			return "auto";	
+    								   		}
+    								   		else
+    								   		{
+    								   		return size;	
+    								   		}
+    								   						
+    								   }
+    								   else
+    								   {
+    								   	return "auto";
+    								   }
+									   };
+				vis["customShape"] = function (data) {
+    								   if(data["type"]=="disease")
+    								   {
+    								   	return "ELLIPSE";
+    								   }
+    								   else if(data["type"]=="SNP")
+    								   {
+    								   	return "RECTANGLE";
+    								   }
+    								   else if(data["type"]=="q")
+    								   {
+    								   	return "HEXAGON";
+    								   }
+    								   else
+    								   {
+    								   	return "ROUNDRECT";
+    								   }
+    								   				
+									   };
+									   
                 global_vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
                 vis.ready(function() {
-                 	/*
-                 	 * function(node) {
-                 		for(var temp in filtered_nodes)
+                 	var to_select_edges=new Array;
+                 		var to_select_nodes=new Array;
+                 		vis.addListener("mouseover", "edges",function(evt){
+                 			var edge=evt.target;
+                 			//alert(edge.data.source+" "+edge.data.target+" "+edge.data.id);
+                 		});
+                 	vis.addListener("mouseover", "nodes", function(evt){
+                 		to_select_edges=[];
+                 		to_select_nodes=[];
+                 		var node=evt.target;
+                 		var html="";
+                 		to_select_nodes.push(node.data.id);
+                 		if(node.data.type=="disease")
                  		{
-                 			if(filtered_nodes[temp]!=node.data.id)
-                 			{
-                 				alert(filtered_nodes[temp]);
-                 				return 0;
-                 			}
+                 			html=node.data.label+" is causeed by the following SNps:<br />";
                  		}
-                 	 */
+                 		else if(node.data.type=="SNP")
+                 		{
+                 			html=node.data.label+" causes the following diseases:<br />";
+                 		}
+                 		else if(node.data.type=="q")
+                 		{
+                 			html=node.data.label+" the following SNPs are present<br />";
+                 		}
+                 		else
+                 		{
+                 			html=node.data.type.replace("SNPcount","")+" SNPs in the gene cause the following diseases:<br />";
+                 		}
+                 		
+                 		var all_edges=vis.edges();
+                 		for(var temp in all_edges)
+                 		{
+                 			
+                 			if(all_edges[temp].data.source==node.data.id)
+                 			{
+                 				to_select_edges.push(all_edges[temp].data.id);
+                 				to_select_nodes.push(all_edges[temp].data.target);
+                 				if((vis.node(all_edges[temp].data.target).data.type!="q")&&(vis.node(all_edges[temp].data.target).data.to_show!=1))
+                 				{
+                 				html+=vis.node(all_edges[temp].data.target).data.label+"<br />";	
+                 				}
+                 				
+                 			}
+                 			if(all_edges[temp].data.target==node.data.id)
+                 			{
+                 				to_select_edges.push(all_edges[temp].data.id);
+                 				to_select_nodes.push(all_edges[temp].data.source);
+                 				if((vis.node(all_edges[temp].data.source).data.type!="q")&&(vis.node(all_edges[temp].data.source).data.to_show!=1))
+                 				{
+                 				html+=vis.node(all_edges[temp].data.source).data.label+"<br />";
+                 				}
+                 			}
+                 		}	
+                 		vis.select("edges",to_select_edges);
+                 		vis.select("nodes",to_select_nodes);
+                 		$("#content").html(html);
+                 	});
+                 	vis.addListener("mouseout","nodes",function(evt){
+                 		vis.deselect("nodes",to_select_nodes);
+                 		vis.deselect("edges",to_select_edges);
+                 	});
+                 	
               	vis.addListener("click", "nodes", function(evt) {
               		var node = evt.target;
    if(node.data.type!="disease"&&node.data.type!="q"&&node.data.type!="SNP")
@@ -234,26 +337,18 @@ $(document).ready(function(){
 });
 
 
-                 	/*vis.filter("nodes",function(node) {
-                 		//alert("next");
-                 		for(var temp in filtered_nodes)
-                 		{
-                 			//alert(filtered_nodes[temp]+" "+node.data.id)
-                 			if(filtered_nodes[temp]!=node.data.id)
-                 			{
-                 				return 1;	
-                 			}
-                 		}
-                 		}, false);*/
+              
    						render_filter(filtered_nodes);
                  		function render_filter(filtered_nodes)
                  		{
                  			reverse_filtered_nodes=[];
                  		var occurence_flag=0;
+                 		var single_flag=0;
                  		var nodes_all=vis.nodes();
                  		for(var temp_node_vis in nodes_all)
                  				{
                  				occurence_flag=0;
+                 				
                  		for(var temp in filtered_nodes)
                  		{
                  					if(filtered_nodes[temp]==nodes_all[temp_node_vis].data.id)
@@ -261,8 +356,17 @@ $(document).ready(function(){
                  						occurence_flag=1;			
                  					}		
                  				}
-                 				
-                 				if(occurence_flag==0)
+                 				single_flag=0;
+                 				for(var temp_repeat in single_notfiltered)
+                 				{
+                 					if(single_notfiltered[temp_repeat]==nodes_all[temp_node_vis].data.id)
+                 					{
+                 						single_flag=1;
+                 									
+                 					}		
+                 					
+                 				}
+                 				if((occurence_flag==0)||(single_flag==1))
                  				{
                  				reverse_filtered_nodes.push(nodes_all[temp_node_vis].data.id);	
                  				}   
