@@ -186,7 +186,7 @@ $(document).ready(function(){
                 				{
                 					remember_source=network_json["data"]["edges"][temp_node_filtered]["source"];
                 				}
-                					filtered_nodes.push(network_json["data"]["edges"][temp_node_filtered]["source"]);
+                				filtered_nodes.push(network_json["data"]["edges"][temp_node_filtered]["source"]);
                 				number_of_filterednodes++;
                 			}
                 		}
@@ -198,8 +198,7 @@ $(document).ready(function(){
     	            		network_json["data"]["edges"].push({id:String(edgecounter),source:String(counter),target:network_json["data"]["nodes"][temp_node_disease]["id"]});	
                 		}
                 		else if(number_of_filterednodes==1)
-                		{
-                			
+                		{                			
                 			single_notfiltered.push(remember_source);
                 		}
         				edgecounter++;
@@ -276,7 +275,7 @@ $(document).ready(function(){
                  		}
                  		else
                  		{
-                 			html=node.data.type.replace("SNPcount","")+" SNPs in the gene cause the following diseases:<br />";
+                 			html=node.data.label.replace("SNP(","").replace(")","")+" SNPs in the gene cause the following diseases:<br />";
                  		}
                  		
                  		var all_edges=vis.edges();
