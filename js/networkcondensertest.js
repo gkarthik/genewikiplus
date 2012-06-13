@@ -50,7 +50,7 @@ $(document).ready(function(){
                 var counter=1;
                 var edgecounter=1;
          
-                network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["query"]["q"],type:"q"});
+                network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["query"]["q"].replace("[[in_gene::","").replace("]]",""),type:"q"});
                 counter++;
                 var secondary_centre;
                 for(var temp in data["ask"]["results"]["items"])
@@ -282,19 +282,19 @@ $(document).ready(function(){
                  		//to_select_nodes.push(node.data.id);
                  		if(node.data.type=="disease")
                  		{
-                 			html=node.data.label+" is causeed by the following SNps:<br />";
+                 			html=node.data.label+" is related to the following SNps:<br />";
                  		}
                  		else if(node.data.type=="SNP")
                  		{
-                 			html=node.data.label+" causes the following diseases:<br />";
+                 			html=node.data.label+" is related to the following diseases:<br />";
                  		}
                  		else if(node.data.type=="q")
                  		{
-                 			html=node.data.label+" the following SNPs are present<br />";
+                 			html="In "+node.data.label+" the following SNPs are present<br />";
                  		}
                  		else
                  		{
-                 			html=node.data.label.replace("SNP(","").replace(")","")+" SNPs in the gene cause the following diseases:<br />";
+                 			html=node.data.label.replace("SNP(","").replace(")","")+" SNPs in the gene are related to the following diseases:<br />";
                  		}
                  		
                  		var all_edges=vis.edges();
