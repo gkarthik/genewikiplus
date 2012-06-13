@@ -81,7 +81,7 @@ $(document).ready(function(){
                 }
                      var layout = {
   								  name:    "ForceDirected",
-  								  options:{mass: 50,gravitation: -5,maxTime: 100000,minDistance: 20,maxDistance:40 }    					
+  								  options:{mass: 50,gravitation: -5,maxTime: 100000,minDistance: 20,maxDistance:40,autoStabilize :1 }    					
 									};              
                 var options = {
                     swfPath: "swf/CytoscapeWeb",
@@ -250,17 +250,49 @@ $(document).ready(function(){
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
                 vis.ready(function() {
                  	var to_select_edges=new Array;
-                 		var to_select_nodes=new Array;
+                 		var to_select_node=new Array;
+                 		var dblclicked_id="none";
                  		vis.addListener("mouseover", "edges",function(evt){
                  			var edge=evt.target;
                  			//alert(edge.data.source+" "+edge.data.target+" "+edge.data.id);
+                 		});
+                 		var to_filterout_nodes=new Array;
+                 		vis.addListener("dblclick","nodes",function(evt){
+                 			var node=evt.target;
+                 			if(dblclicked_id=="none")
+                 			{
+                 			
+                 			var all_edges=vis.edges();
+                 			to_filterout_nodes=[];
+                 			dblclicked_id=node.data.id;
+                 			to_filterout_nodes.push(node.data.id);
+                 		for(var temp in all_edges)
+                 		{
+                 			if(all_edges[temp].data.source==node.data.id)
+                 			{
+                 				
+                 				to_filterout_nodes.push(all_edges[temp].data.target);
+                 			}
+                 			if(all_edges[temp].data.target==node.data.id)
+                 			{
+                 				
+                 				to_filterout_nodes.push(all_edges[temp].data.source);
+                 			}
+                 		}
+                 		vis.filter("nodes",to_filterout_nodes);
+                 		}
+                 		else if(dblclicked_id==node.data.id)
+                 		{
+                 			render_filter(filtered_nodes);
+                 			dblclicked_id="none";
+                 		}
                  		});
                  	vis.addListener("mouseover", "nodes", function(evt){
                  		to_select_edges=[];
                  		to_select_nodes=[];
                  		var node=evt.target;
                  		var html="";
-                 		to_select_nodes.push(node.data.id);
+                 		//to_select_nodes.push(node.data.id);
                  		if(node.data.type=="disease")
                  		{
                  			html=node.data.label+" is causeed by the following SNps:<br />";
