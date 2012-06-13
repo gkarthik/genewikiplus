@@ -40,7 +40,8 @@ $(document).ready(function(){
                         shape: { customMapper: { functionName: "customShape" }},
                         borderWidth: 3,
                         borderColor: "#ffffff",
-                        size: { customMapper: { functionName: "customSize" } }
+                        labelFontSize : { customMapper: { functionName: "customSize" } },
+                        size:"auto"
                        }
                      };
   
@@ -193,6 +194,7 @@ $(document).ready(function(){
                 		if(number_of_filterednodes>1)
                 		{
                 			network_json["data"]["nodes"].push({id:String(counter),label:"SNP("+number_of_filterednodes+")",to_show:1,type:"SNPcount"+network_json["data"]["nodes"][temp_node_disease]["id"],weight:number_of_filterednodes});
+                			network_json["data"]["nodes"][temp_node_disease]["weight"]=number_of_filterednodes;
 	                		network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
 	                		edgecounter++;
     	            		network_json["data"]["edges"].push({id:String(edgecounter),source:String(counter),target:network_json["data"]["nodes"][temp_node_disease]["id"]});	
@@ -208,23 +210,8 @@ $(document).ready(function(){
                 
                   var vis = new org.cytoscapeweb.Visualization(div_id, options); 
                   vis["customSize"] = function (data) {
-    								   if((data["type"]!="q")&&(data["type"]!="disease")&&(data["type"]!="SNP"))
-    								   {
-    								   		var size = Math.round(3.2*data["weight"]);
-    								   		if(data["weight"]<8)
-    								   		{
-    								   			return "auto";	
-    								   		}
-    								   		else
-    								   		{
-    								   		return size;	
-    								   		}
-    								   						
-    								   }
-    								   else
-    								   {
-    								   	return "auto";
-    								   }
+    								   		var size = 11+Math.round(0.8*data["weight"]);
+											return size;	
 									   };
 				vis["customShape"] = function (data) {
     								   if(data["type"]=="disease")
