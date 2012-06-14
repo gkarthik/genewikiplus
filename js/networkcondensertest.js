@@ -317,7 +317,7 @@ $(document).ready(function(){
                  				to_select_nodes.push(all_edges[temp].data.source);
                  				if((vis.node(all_edges[temp].data.source).data.type!="q")&&(vis.node(all_edges[temp].data.source).data.to_show!=1))
                  				{
-                 				html+=html+="<a href='http://genewikiplus.org/index.php?title="+vis.node(all_edges[temp].data.source).data.label+"' target='_blank'>"+vis.node(all_edges[temp].data.source).data.label+"</a><br />";+"<br />";
+                 				html+="<a href='http://genewikiplus.org/index.php?title="+vis.node(all_edges[temp].data.source).data.label+"' target='_blank'>"+vis.node(all_edges[temp].data.source).data.label+"</a><br />";
                  				}
                  			}
                  		}	
@@ -327,11 +327,17 @@ $(document).ready(function(){
                  	});
                  	vis.addListener("mouseout","nodes",function(evt){
                  		vis.deselect("nodes",to_select_nodes);
-                 		vis.deselect("edges",to_select_edges);
+                 		vis.deselect("edges",to_select_edges); 	
                  	});
                  	
               	vis.addListener("click", "nodes", function(evt) {
               		var node = evt.target;
+              		if(node.data.type=="SNP")
+              		{
+			$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[HasSNP::"+node.data.label+"]]&po=Is+associated+with+disease&format=json&callback=?", function(data) {
+				
+              });
+              }
    if(node.data.type!="disease"&&node.data.type!="q"&&node.data.type!="SNP")
    {
 		var disease_id=node.data.type.replace("SNPcount","");
