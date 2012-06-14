@@ -282,19 +282,19 @@ $(document).ready(function(){
                  		//to_select_nodes.push(node.data.id);
                  		if(node.data.type=="disease")
                  		{
-                 			html=node.data.label+" is related to the following SNps:<br />";
+                 			html="<a href='http://genewikiplus.org/index.php?title="+node.data.label+"' target='_blank'>"+node.data.label+"</a> is related to the following SNps:<br />";
                  		}
                  		else if(node.data.type=="SNP")
                  		{
-                 			html=node.data.label+" is related to the following diseases:<br />";
+                 			html="<a href='http://genewikiplus.org/index.php?title="+node.data.label+"' target='_blank'>"+node.data.label+"</a> is related to the following diseases:<br />";
                  		}
                  		else if(node.data.type=="q")
                  		{
-                 			html="In "+node.data.label+" the following SNPs are present<br />";
+                 			html="In <a href='http://genewikiplus.org/index.php?title="+node.data.label+"' target='_blank'>"+node.data.label+"</a> the following SNPs are present<br />";
                  		}
                  		else
                  		{
-                 			html=node.data.label.replace("SNP(","").replace(")","")+" SNPs in the gene are related to the following diseases:<br />";
+                 			html="<a href='http://genewikiplus.org/index.php?title="+node.data.label.replace("SNP(","").replace(")","")+"' target='_blank'>"+node.data.label.replace("SNP(","").replace(")","")+"</a> SNPs in the gene are related to the following diseases:<br />";
                  		}
                  		
                  		var all_edges=vis.edges();
@@ -307,7 +307,7 @@ $(document).ready(function(){
                  				to_select_nodes.push(all_edges[temp].data.target);
                  				if((vis.node(all_edges[temp].data.target).data.type!="q")&&(vis.node(all_edges[temp].data.target).data.to_show!=1))
                  				{
-                 				html+=vis.node(all_edges[temp].data.target).data.label+"<br />";	
+                 				html+="<a href='http://genewikiplus.org/index.php?title="+vis.node(all_edges[temp].data.target).data.label+"' target='_blank'>"+vis.node(all_edges[temp].data.target).data.label+"</a><br />";	
                  				}
                  				
                  			}
@@ -317,7 +317,7 @@ $(document).ready(function(){
                  				to_select_nodes.push(all_edges[temp].data.source);
                  				if((vis.node(all_edges[temp].data.source).data.type!="q")&&(vis.node(all_edges[temp].data.source).data.to_show!=1))
                  				{
-                 				html+=vis.node(all_edges[temp].data.source).data.label+"<br />";
+                 				html+=html+="<a href='http://genewikiplus.org/index.php?title="+vis.node(all_edges[temp].data.source).data.label+"' target='_blank'>"+vis.node(all_edges[temp].data.source).data.label+"</a><br />";+"<br />";
                  				}
                  			}
                  		}	
