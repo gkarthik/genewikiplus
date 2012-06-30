@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>HTML</title>
+		<meta name="author" content="gkarthik" />
+
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/min/json2.min.js"></script>        
+        <script type="text/javascript" src="js/min/AC_OETags.min.js"></script>        
+        <script type="text/javascript" src="js/min/cytoscapeweb.min.js"></script>  
+		<script type="text/javascript" src="js/networkcondensertest_disease.js"></script>
+	</head>
+
+	<body>
+		Gene->SNP->Disease condensed network. Enter Gene name. <br />
+		Hover over the nodes generated to view highlited connections and also to see additional data on the right.<br />
+		Double click nodes to filter out only the connections you require. Double click the second time to restore original network.<br />
+		<input type="text" id="query_gene" /><input type="button" id="query_button" value="Query" /><br />
+		<div id="networkview" style="height:600px;width:800px;float:left;"></div>
+		<div id="content" style="height:600px;width:200px;float:left;"></div>
+	</body>
+</html>
