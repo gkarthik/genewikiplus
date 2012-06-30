@@ -157,66 +157,54 @@ $(document).ready(function(){
                 		ajax_nodeids.push(network_json["data"]["nodes"][temp]["id"]);
                 		ajax_nodelabels.push(network_json["data"]["nodes"][temp]["label"]);
                 		ajax_nodelabels_count++;
-                	
-                		alert(ajax_nodelabels[ajax_nodelabels_count]);
-                		<!---------Buggy because of multiple Ajax requests. --!>
                 		$.getJSON("http://genewikiplus.org/api.php?action=query&titles="+ajax_nodelabels[ajax_nodelabels_count-1].replace(" ","+")+"&prop=categories&format=json&callback=?", function(data) {
 							data_storage.push(data);
-							
 									ajax_nodecount++;
 									data_storage_count++;							
-								$("#content").append("Node count:"+ajax_nodelabels_count+"<br />"+data_storage_count+"<br />");
-							$("#content").append("Title: "+ajax_nodelabels[inner_label_count]+"<br />");
-							for(var temp3 in data_storage[data_storage_count]["query"]["pages"])
-							{
-							for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
-							{
-								if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1))
-								{
-								all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":ajax_nodeids[ajax_nodecount],"node_disease_label":ajax_nodelabels[inner_label_count]});
-								$("#content").append("category"+":"+data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"]+","+"node_disease_id"+":"+ajax_nodeids[ajax_nodecount]+","+"node_disease_label"+":"+ajax_nodelabels[inner_label_count]+"<br />");								
-								$("#content").append("<br /><br />--------"+ajax_nodecount+"<br /><br />--------");
-								}
-							}
-							}
 							if(ajax_nodecount==disease_count-1)
-							{
-								alert("Hey!")
-								//$("#content").html("");
-								for(var temp2 in ajax_nodeids)
-								{
-//									$("#content").append(ajax_nodeids[temp2]+" "+ajax_nodelabels[temp2]+"<br />");
-								}
-								
-								//$("#content").append("<br />");
-							for(var temp in all_categories_array)
-								{
-							//$("#content").append("category"+":"+all_categories_array[temp]["category"]+","+"node_disease_id"+":"+all_categories_array[temp]["node_disease_id"]+","+"node_disease_label"+":"+all_categories_array[temp]["node_disease_label"]+"<br /><br />-----<br />");		
-								}
+							{								
 								group_nodecategories();
 							}
-						inner_label_count++;
 						});
                 	}
                 }
                 var group_category=[];
-                
+    
                 function group_nodecategories()
                 {
+                		for(var temp_nj in network_json["data"]["nodes"])
+                		{
+                			for(var data_storage_count in data_storage)
+                	{
+									for(var temp3 in data_storage[data_storage_count]["query"]["pages"])
+									{
+										if(data_storage[data_storage_count]["query"]["pages"][temp3]["title"]==network_json["data"]["nodes"][temp_nj]["label"])
+								{
+										for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
+										{
+										if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1))
+										{
+											all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":network_json["data"]["nodes"][temp_nj]["id"],"node_disease_label":network_json["data"]["nodes"][temp_nj]["label"]});
+										}
+									}
+								}			
+						}
+                				
+                	}
+                		
+              	}
+				
                 var groupno=0;
                 var group_flag=0;
                 var group_category_index=0;
-                //$("#content").ht0ml("");
                 for(var temp in all_categories_array)
                 {
                 	group_flag=0;
                 	count_check=0;
                 	for(var group_temp in group_category)
                 	{
-                		//$("#content").append(group_category[group_temp]["group_category"]+" "+all_categories_array[temp]["category"]);
                 		if(group_category[group_temp]["group_category"]==all_categories_array[temp]["category"])
                 		{
-                			//$("#content").append("<br />group_flag=1<br />");
                 			group_flag=1;
                 			group_category_index=group_temp;
                 		}
@@ -224,50 +212,21 @@ $(document).ready(function(){
                 		
                 	if(group_flag==0)
                 	{
-                		//$("#content").append("<br />group_flag=0<br />");
-                		//$("#content").append("<br />"+all_categories_array[temp]["category"]+"<br />");
                 	group_category.push({"group_no":groupno,"group_category":all_categories_array[temp]["category"],"ids":[]});
                 	groupno++;
                 	
                 	for(var temp2 in all_categories_array)
 					{
-						
-						if((all_categories_array[temp2]["category"]==all_categories_array[temp]["category"]))
+						if((all_categories_array[temp2]["category"]==group_category[group_category.length-1]["group_category"]))
 						{
-							//$("#content").append((all_categories_array[temp2]["category"]+" "+all_categories_array[temp]["category"]));
-							//$("#content").append("<br />"+all_categories_array[temp2]["node_disease_label"]+"<br />");
 								group_category[group_category.length-1]["ids"].push(all_categories_array[temp2]["node_disease_id"]);
-								//alert(all_categories_array[temp2]["node_disease_label"]+" "+all_categories_array[temp]["category"]);								
 						}
 					}
 					}
-					/*for(var test in network_json["data"]["nodes"])
-					{
-						for(var test2 in group_category[group_category.length-1]["ids"])
-						{
-						if(group_category[group_category.length-1]["ids"][test2]==network_json["data"]["nodes"][test]["id"])
-						{
-							//alert(network_json["data"]["nodes"][test]["label"]);
-							group_category[group_category.length-1]["ids"].push(all_categories_array[temp2]["node_disease_id"]);	
-						}
-						}
-						
-					}*/
-                	
                 }
                 var to_filter=[];
                 var filter_flag=0;
                 var count_category=0;
-                //To see group array
-                //$("#content").html("");
-                for(var temp in group_category)
-                {
-                	
-                //$("#content").append(group_category[temp]["group_category"]);
-              //$("#content").append(group_category[temp]["ids"].length+"<br />");
-                	
-                }
-                
                 for(var temp_main in network_json["data"]["nodes"])
                 {
                 	filter_flag=0;
@@ -279,17 +238,12 @@ $(document).ready(function(){
                 	{
                 		if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
                 		{
-                			
                 			filter_flag=1;
-                			if(count_category==1)
-                			{
                 			network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
                 			to_filter.push(String(counter));
                 			network_json["data"]["edges"].push({id:String(edgecounter),source:network_json["data"]["nodes"][temp_main]["id"],target:String(counter)});
                 			edgecounter++;
                 			counter++;
-                				
-                			}
                 		count_category++;
                 			
                 		}	
@@ -299,7 +253,6 @@ $(document).ready(function(){
                 if(filter_flag==0)
                 {
                 	to_filter.push(network_json["data"]["nodes"][temp_main]["id"]);
-                	//alert(to_filter[to_filter.length-1]);
                 }
                 }
                 
