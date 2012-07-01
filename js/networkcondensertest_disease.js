@@ -18,7 +18,7 @@ $(document).ready(function(){
                 var network_json = {
                         dataSchema: {
                     		nodes: [ { name: "label", type: "string" },
-                    		{ name: "type", type: "string" },{ name: "category", type: "string" }                   		      
+                    		{ name: "type", type: "string" },{ name: "category", type: "string" },{ name: "weight", type: "integer" }                   		      
            		         	],
 							edges: [ { name: "label", type: "string" }						         
 							]
@@ -31,16 +31,23 @@ $(document).ready(function(){
                             ]
                         }
                 };
-                
+                var colorMapper = {attrName: "type",
+        						   entries: [ { attrValue: "q", value: "#ff0000" },
+                   							  { attrValue: "disease", value: "#00ff00" },
+                   							  { attrValue: "category_group", value: "yellow" } ]
+								  };
+				
                 var visual_style = {
                     global: {
                         backgroundColor: "#ABCFD6"
                     },
                     nodes: {
-                        shape: "RECTANGLE",
+                        	color:{discreteMapper: colorMapper},
+                        shape: { customMapper: { functionName: "customShape" }},
                         borderWidth: 3,
                         borderColor: "#ffffff",
-                        size: "auto"
+                        labelFontSize : { customMapper: { functionName: "customSize" } },
+                        size:"auto"
                        }
                      };
   
@@ -241,31 +248,49 @@ $(document).ready(function(){
                 	}
                 }*/
                 var to_filter=[];
+                var to_remove=[];
+                to_filter.push("1");
                 var filter_flag=0;
                 var count_category=0;
                 var link_break=0;
+                var filter_flag=0;
                 for(var temp_main in network_json["data"]["nodes"])
                 {
-                	filter_flag=0;
                 	
                 	for(var temp in group_category)
                 {
                 	count_category=0;
+                	
                 	for(var temp2 in group_category[temp]["ids"])
                 	{
                 		count_category=group_category[temp]["ids"].length;
+                		
                 			if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
                 		{
                 			if(count_category==1)
                 			{
                 				network_json["data"]["nodes"][temp_main]["label"]+="\n"+group_category[temp]["group_category"];
+                				filter_flag=0;
+                				for(var temp_filter in to_filter)
+                				{
+                					if(to_filter[temp_filter]==group_category[temp]["ids"][temp2])
+                					{
+                						filter_flag=1;
+                					}
+                				}
+                				if(filter_flag==0)
+                				{
+                				to_filter.push(network_json["data"]["nodes"][temp_main]["id"]);	
+                				}                				
 				 			}
                 			else if(count_category>1)
                 			{
+                				
                 				if(temp2==0)
                 				{
-                				network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
-                				network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});                					
+                				network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"]+"\nDiseases("+count_category+")",type:"category_group",weight:count_category});
+                				network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
+                				to_filter.push(String(counter));                					
                 				}
                 				link_break=0;
                 				for(var temp_edge in network_json["data"]["edges"])
@@ -287,25 +312,69 @@ $(document).ready(function(){
                 					counter++;
                 				edgecounter++;
                 				}
-                				
+                				to_remove.push(group_category[temp]["ids"][temp2]);
 	
                 			}
                 		}	
                 			
                 	}
                 }
-                if(filter_flag==0)
-                {
-                	to_filter.push(network_json["data"]["nodes"][temp_main]["id"]);
                 }
-                }
-                
-                var vis = new org.cytoscapeweb.Visualization(div_id, options);
+                for(var temp_filter in to_filter)
+                				{
+                					for(var temp_remove in to_remove)
+                					{
+                					if(to_filter[temp_filter]==to_remove[temp_remove])
+                					{
+                						to_filter.splice(temp_filter,1);
+                					}	
+                					}
+                					
+                				}
+                                var vis = new org.cytoscapeweb.Visualization(div_id, options);
                 global_vis=vis;
+                 vis["customSize"] = function (data) {
+    								   		var size = 11+Math.round(0.8*data["weight"]);
+											return size;	
+									   };
+				vis["customShape"] = function (data) {
+    								   if(data["type"]=="disease")
+    								   {
+    								   	return "ELLIPSE";
+    								   }
+    								   else if(data["type"]=="group_category")
+    								   {
+    								   	return "RECTANGLE";
+    								   }
+    								   else if(data["type"]=="q")
+    								   {
+    								   	return "HEXAGON";
+    								   }
+    								   else
+    								   {
+    								   	return "ROUNDRECT";
+    								   }
+    								   				
+									   };
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });	
                 vis.ready(function(){
-		//vis.filter("nodes",to_filter);
-	});
+					vis.filter("nodes",to_filter);
+					vis.addListener("click", "nodes",function(evt){
+                 			var node=evt.target;
+                 			if(node.data.type=="category_group")
+                 			{
+                 			var all_edges=vis.edges();
+                 			for(var temp in all_edges)
+                 			{
+                 				if(all_edges[temp].data.source==node.data.id)
+                 				{				
+                						to_filter.push(all_edges[temp].data.target);				
+                 				}
+                 			}
+                 			vis.filter("nodes",to_filter);	
+                 			}
+                 		});
+				});
                 }
                 
                 
