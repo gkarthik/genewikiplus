@@ -182,7 +182,7 @@ $(document).ready(function(){
 								{
 										for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
 										{
-										if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Greek")==-1))
+										if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1)/*&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Greek")==-1)*/)
 										{
 											all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":network_json["data"]["nodes"][temp_nj]["id"],"node_disease_label":network_json["data"]["nodes"][temp_nj]["label"]});
 										}
@@ -224,23 +224,70 @@ $(document).ready(function(){
 					}
 					}
                 }
+                for(var temp in group_category)
+                {
+                	$("#content").append("<br /><br />-------<br />Group No: "+group_category[temp]["group_no"]+"<br />Group Category: "+group_category[temp]["group_category"]+"<br />Id s are");
+                	for(var temp_internal in group_category[temp]["ids"])
+                	{
+                		$("#content").append(group_category[temp]["ids"][temp_internal]+" ");
+                	}
+                }
                 var to_filter=[];
                 var filter_flag=0;
                 var count_category=0;
+                var link_break=0;
                 for(var temp_main in network_json["data"]["nodes"])
                 {
                 	filter_flag=0;
-                	count_category=0;
+                	
                 	for(var temp in group_category)
                 {
-                	
+                	count_category=0;
                 	for(var temp2 in group_category[temp]["ids"])
                 	{
+                		count_category++;
                 		if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
                 		{
-                			
-                			network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
-                			
+                			if(count_category==1)
+                			{
+								network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
+                				network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
+                				link_break=0;
+                				for(var temp_edge in network_json["data"]["edges"])
+                				{	
+                				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
+                				{
+                					link_break=1;
+                					network_json["data"]["edges"][temp_edge]["source"]=String(counter);
+                					network_json["data"]["edges"][temp_edge]["target"]=network_json["data"]["nodes"][temp_main]["id"];
+                				}
+                				}
+                				if(link_break==0)
+                				{
+									network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});                					
+                				}	
+                				counter++;
+                				edgecounter++;
+                			}
+                			else if(count_category>1)
+                			{
+                				for(var temp_edge in network_json["data"]["edges"])
+                				{
+                					link_break=0;	
+                				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
+                				{
+                					link_break=1;
+                					network_json["data"]["edges"][temp_edge]["source"]=String(counter-count_category);
+                					network_json["data"]["edges"][temp_edge]["target"]=network_json["data"]["nodes"][temp_main]["id"];
+                				}
+                				}
+                				if(link_break==0)
+                				{
+									network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});                					
+                				}	
+
+                			}
+                			/*network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
                 			network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
                 			for(var temp_edge in network_json["data"]["edges"])
                 			{
@@ -258,8 +305,8 @@ $(document).ready(function(){
                 					network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});
                 			}
                 			edgecounter++;
-                			counter++;
-                			count_category++;
+                			counter++;*/
+                			
                 		}	
                 			
                 	}
