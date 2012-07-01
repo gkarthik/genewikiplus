@@ -182,7 +182,7 @@ $(document).ready(function(){
 								{
 										for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
 										{
-										if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1))
+										if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Greek")==-1))
 										{
 											all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":network_json["data"]["nodes"][temp_nj]["id"],"node_disease_label":network_json["data"]["nodes"][temp_nj]["label"]});
 										}
@@ -238,14 +238,28 @@ $(document).ready(function(){
                 	{
                 		if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
                 		{
-                			filter_flag=1;
+                			
                 			network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
-                			to_filter.push(String(counter));
-                			network_json["data"]["edges"].push({id:String(edgecounter),source:network_json["data"]["nodes"][temp_main]["id"],target:String(counter)});
+                			
+                			network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
+                			for(var temp_edge in network_json["data"]["edges"])
+                			{
+                				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
+                				{
+                					network_json["data"]["edges"][temp_edge]["target"]=String(counter);
+                					network_json["data"]["edges"][temp_edge]["source"]=network_json["data"]["nodes"][temp_main]["id"];
+                				}
+                			}
+                			
+                			if(count_category>=1)
+                			{
+                	//			to_filter.push(network_json["data"]["nodes"][temp_main]["id"]);
+                				filter_flag=1;
+                					network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});
+                			}
                 			edgecounter++;
                 			counter++;
-                		count_category++;
-                			
+                			count_category++;
                 		}	
                 			
                 	}
