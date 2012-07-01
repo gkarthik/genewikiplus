@@ -3,10 +3,15 @@ $(document).ready(function(){
 	var data_pin1={"ask":{"query":{"q":"[[In_gene::PIN1]]","po":["?is associated with disease"]},"results":{"count":3,"items":[{"properties":{"is_associated_with_disease":"Breast cancer","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs2233678","mUrlform":"Rs2233678","mDbkeyform":"Rs2233678","mUserCaseDBKey":"Rs2233678","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs2233678"},{"properties":{"is_associated_with_disease":"Breast cancer","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs2233679","mUrlform":"Rs2233679","mDbkeyform":"Rs2233679","mUserCaseDBKey":"Rs2233679","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs2233679"},{"properties":{"is_associated_with_disease":"Breast cancer","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs2233682","mUrlform":"Rs2233682","mDbkeyform":"Rs2233682","mUserCaseDBKey":"Rs2233682","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs2233682"}]},"result":"Success"}};
 	var data_brca2={"ask":{"query":{"q":"[[BRCA2]]","po":["is associated with disease"]},"results":{"count":1,"items":[{"properties":{"is_associated_with_disease":["Hereditary breast ovarian cancer","Hypersensitivity reaction type I disease","Female breast cancer","Brain cancer","Pancreatic cancer","Ovarian cancer","Anemia","Syndrome","Leukemia","Prostate cancer","Melanoma"],"type":{"mTextform":"All articles with dead external links","mUrlform":"All_articles_with_dead_external_links","mDbkeyform":"All_articles_with_dead_external_links","mUserCaseDBKey":"All_articles_with_dead_external_links","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:All articles with dead external links","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"BRCA2","mUrlform":"BRCA2","mDbkeyform":"BRCA2","mUserCaseDBKey":"BRCA2","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=BRCA2"}]},"result":"Success"}};
 	var data=data_brca2;
-	//$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[Category:Human_proteins]][[is_associated_with::"+disease_query+"]]&po=HasSNP&format=json&callback=?", function(data) {
-		//draw_disease_network(data);
-	//});
-	draw_gene_disease_network(data);
+	$("#query_button").click(function(){
+		var disease_query=$("#query_gene").val();
+		$("#networkview").html("Loading Disease-Gene data...");
+	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+disease_query+"]]&po=is+associated+with+disease&format=json&callback=?",function(data) {
+		draw_gene_disease_network(data);
+	});	
+	});
+	
+	//draw_gene_disease_network(data);
 	function draw_gene_disease_network(data)
 	{
 			var div_id = "networkview";
@@ -44,7 +49,7 @@ $(document).ready(function(){
                 var counter=1;
                 var edgecounter=1;
          
-                network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["query"]["q"],type:"q"});
+                network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["query"]["q"].replace("[[","").replace("]]",""),type:"q"});
                 counter++;
                 var secondary_centre;
                 secondary_centre=counter-1;
@@ -133,6 +138,7 @@ $(document).ready(function(){
                 	}
                 	
                 }
+                $("#networkview").html("Loading Disease category data...");
                 var all_categories_array=[];
                 var ajax_nodeids=new Array;
                 var ajax_nodelabels=new Array;
@@ -224,6 +230,8 @@ $(document).ready(function(){
 					}
 					}
                 }
+                /*
+                To display grouped categories.
                 for(var temp in group_category)
                 {
                 	$("#content").append("<br /><br />-------<br />Group No: "+group_category[temp]["group_no"]+"<br />Group Category: "+group_category[temp]["group_category"]+"<br />Id s are");
@@ -231,7 +239,7 @@ $(document).ready(function(){
                 	{
                 		$("#content").append(group_category[temp]["ids"][temp_internal]+" ");
                 	}
-                }
+                }*/
                 var to_filter=[];
                 var filter_flag=0;
                 var count_category=0;
@@ -245,68 +253,43 @@ $(document).ready(function(){
                 	count_category=0;
                 	for(var temp2 in group_category[temp]["ids"])
                 	{
-                		count_category++;
-                		if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
+                		count_category=group_category[temp]["ids"].length;
+                			if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
                 		{
                 			if(count_category==1)
                 			{
-								network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
-                				network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
+                				network_json["data"]["nodes"][temp_main]["label"]+="\n"+group_category[temp]["group_category"];
+				 			}
+                			else if(count_category>1)
+                			{
+                				if(temp2==0)
+                				{
+                				network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
+                				network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});                					
+                				}
                 				link_break=0;
                 				for(var temp_edge in network_json["data"]["edges"])
                 				{	
                 				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
                 				{
                 					link_break=1;
-                					network_json["data"]["edges"][temp_edge]["source"]=String(counter);
+                					network_json["data"]["edges"][temp_edge]["source"]=String(counter-temp2);
                 					network_json["data"]["edges"][temp_edge]["target"]=network_json["data"]["nodes"][temp_main]["id"];
                 				}
                 				}
                 				if(link_break==0)
                 				{
-									network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});                					
-                				}	
-                				counter++;
+									network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter-temp2),"target":network_json["data"]["nodes"][temp_main]["id"]});
+									edgecounter++;                					
+                				}
+                				if(temp2==0)
+                				{
+                					counter++;
                 				edgecounter++;
-                			}
-                			else if(count_category>1)
-                			{
-                				for(var temp_edge in network_json["data"]["edges"])
-                				{
-                					link_break=0;	
-                				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
-                				{
-                					link_break=1;
-                					network_json["data"]["edges"][temp_edge]["source"]=String(counter-count_category);
-                					network_json["data"]["edges"][temp_edge]["target"]=network_json["data"]["nodes"][temp_main]["id"];
                 				}
-                				}
-                				if(link_break==0)
-                				{
-									network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});                					
-                				}	
-
+                				
+	
                 			}
-                			/*network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"],type:"category"});
-                			network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
-                			for(var temp_edge in network_json["data"]["edges"])
-                			{
-                				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
-                				{
-                					network_json["data"]["edges"][temp_edge]["target"]=String(counter);
-                					network_json["data"]["edges"][temp_edge]["source"]=network_json["data"]["nodes"][temp_main]["id"];
-                				}
-                			}
-                			
-                			if(count_category>=1)
-                			{
-                	//			to_filter.push(network_json["data"]["nodes"][temp_main]["id"]);
-                				filter_flag=1;
-                					network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter),"target":network_json["data"]["nodes"][temp_main]["id"]});
-                			}
-                			edgecounter++;
-                			counter++;*/
-                			
                 		}	
                 			
                 	}
