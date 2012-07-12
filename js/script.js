@@ -789,6 +789,11 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                 network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["query"]["q"].replace("[[in_gene::","").replace("]]",""),type:"q"});
                 counter++;
                 var secondary_centre;
+                
+                if(data["ask"]["results"]==undefined)
+                {
+                	$("#networkview").html("The Gene supplied doesn't have any associated disease in our database.")
+                }
                 for(var temp in data["ask"]["results"]["items"])
                 {
                 	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["title"]["mTextform"],type:"SNP"});
