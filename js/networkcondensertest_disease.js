@@ -6,6 +6,9 @@ $(document).ready(function(){
 	/*$.getJSON("http://rest.bioontology.org/bioportal/concepts/47670?conceptid=DOID:6846&maxnumchildren=12&apikey=3777d491-e0f2-40ca-8a71-5f92fd043668",function(data){
 		alert(data);
 	})*/
+	$.getJSON("",function(data) {
+		draw_gene_disease_network(data);
+	});	
 	$("#query_button").click(function(){
 		var disease_query=$("#query_gene").val();
 		$("#networkview").html("Loading Disease-Gene data...");

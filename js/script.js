@@ -1,11 +1,13 @@
 /**
  * @author gkarthik
  */
-
-$(document).ready(function(){
-	// Global variables to store the CytoscapeWeb interface. Implemented for export functions.
+// Global variables to store the CytoscapeWeb interface. Implemented for export functions.
 var global_vis;
 var global_vis2;	
+
+$(document).ready(function(){
+global_vis=null;
+global_vis2=null;
 //Menu functionality.
 	$("#network_view").live('click',function(){
 		$("#export_options").fadeIn();
@@ -30,89 +32,62 @@ var global_vis2;
 	
 	// Export Functionality
 	$("#export_options ul li").click(function(){
+		export_options(this.id);
+		});
+		$("#omni_submit").click(function(){
+		$("#networkview").html("Loading...");
+		$("#networkview2").html("");
+		$("#networkview2").css({'display':'none'});
+		$("#view_choose_list").html('<li id="network_view">Network</li><li id="tabular_view">Tabular</li>');
+	//To obtain category of Query term to generate relevant network
+	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&format=json&callback=?", function(data) {
+		find_category($("#omni_query").val(),data);
+	});
+	});
+});	
+	
+	
+	function export_options(id)
+	{
 		if($("#networkview").css('display')=="block")
 		{
-		if(this.id=="pdf")
+		if(id=="pdf")
 		{
 			global_vis.exportNetwork('pdf', 'export.php?type=pdf');
 		}
-		else if(this.id=="png")
+		else if(id=="png")
 		{
 			global_vis.exportNetwork('png', 'export.php?type=png');
 		}
-		else if(this.id=="txt")
+		else if(id=="txt")
 		{
 			global_vis.exportNetwork('txt', 'export.php?type=txt');
 		}
-		else if(this.id=="svg")
+		else if(id=="svg")
 		{
 			global_vis.exportNetwork('svg', 'export.php?type=svg');
 		}	
 		}
 		else//Export for Gene->Disease network that comes along with Gene->SNP->Disease netowrk
 		{
-			if(this.id=="pdf")
+			if(id=="pdf")
 		{
 			global_vis2.exportNetwork('pdf', 'export.php?type=pdf');
 		}
-		else if(this.id=="png")
+		else if(id=="png")
 		{
 			global_vis2.exportNetwork('png', 'export.php?type=png');
 		}
-		else if(this.id=="txt")
+		else if(id=="txt")
 		{
 			global_vis2.exportNetwork('txt', 'export.php?type=txt');
 		}
-		else if(this.id=="svg")
+		else if(id=="svg")
 		{
 			global_vis2.exportNetwork('svg', 'export.php?type=svg');
 		}
 		}
-		
-	});
-	
-	$("#omni_submit").click(function(){
-		$("#networkview").html("Loading...");
-		$("#networkview2").html("");
-		$("#networkview2").css({'display':'none'});
-		$("#view_choose_list").html('<li id="network_view">Network</li><li id="tabular_view">Tabular</li>');
-//To obtain category of Query term to generate relevant network
-	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&format=json&callback=?", function(data) {
-		if(data["ask"]["results"]==undefined)
-		{
-			$("#networkview").html("Query term entered does not match any term in the database.");
-		}
-		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Human_proteins')
-		{
-			generate_gene($("#omni_query").val());
-			generate_gene_disease($("#omni_query").val());
-			$("#view_choose").fadeIn();
-			$("#export_options").fadeIn();
-			$("#networkview").html("Loading network about gene "+$("#omni_query").val()+"...");
-			$("#view_choose_list").append("<li id='gene_disease_network_display'>Gene->Disease Network</li>");
-			$("#sidebar").fadeIn();
-		}
-		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Is_a_snp')
-		{
-			generate_snp($("#omni_query").val());
-			$("#view_choose").fadeIn();
-			$("#export_options").fadeIn();
-			$("#networkview").html("Loading network about SNP "+$("#omni_query").val()+"...");
-			$("#sidebar").fadeOut();
-		}
-		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='All_articles_with_dead_external_links')
-		{
-			generate_disease($("#omni_query").val());
-			
-			$("#view_choose").fadeIn();
-			$("#export_options").fadeIn();			
-			$("#networkview").html("Loading network about disease "+$("#omni_query").val()+"...");
-			$("#sidebar").fadeOut();
-		}
-	
-	});		
-	});
-	
+	}
 	
 	function generate_gene_disease(gene_disease_query)//To generate Gene->Disease query
 	{
@@ -325,24 +300,24 @@ var global_vis2;
                 		for(var temp_nj in network_json["data"]["nodes"])
                 		{
                 			for(var data_storage_count in data_storage)
-                	{
+                			{
 									for(var temp3 in data_storage[data_storage_count]["query"]["pages"])
 									{
 										if(data_storage[data_storage_count]["query"]["pages"][temp3]["title"]==network_json["data"]["nodes"][temp_nj]["label"])
-								{
-										for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
 										{
-										if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1)/*&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Greek")==-1)*/)
-										{
-											all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":network_json["data"]["nodes"][temp_nj]["id"],"node_disease_label":network_json["data"]["nodes"][temp_nj]["label"]});
-										}
+											for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
+											{
+												if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1)/*&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Greek")==-1)*/)
+												{
+													all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":network_json["data"]["nodes"][temp_nj]["id"],"node_disease_label":network_json["data"]["nodes"][temp_nj]["label"]});
+												}
+											}
+										}			
 									}
-								}			
-						}
                 				
-                	}
+                			}
                 		
-              	}
+              			}
 				//Generating a dictionary variable group_category with diseases with common categories under the same element
                 var groupno=0;
                 var group_flag=0;
@@ -394,9 +369,9 @@ var global_vis2;
                 		count_category=group_category[temp]["ids"].length;
                 		
                 			if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
-                		{
-                			if(count_category==1)
                 			{
+                				if(count_category==1)
+                				{
                 				network_json["data"]["nodes"][temp_main]["label"]+="\n"+group_category[temp]["group_category"];
                 				filter_flag=0;
                 				for(var temp_filter in to_filter)
@@ -461,7 +436,7 @@ var global_vis2;
                 				}
                 				//customizing shape options
                                 var vis = new org.cytoscapeweb.Visualization(div_id, options);
-                global_vis=vis;
+                global_vis2=vis;
                  vis["customSize"] = function (data) {
     								   		var size = 11+Math.round(0.8*data["weight"]);
 											return size;	
@@ -1312,4 +1287,47 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                 
 	}
 	            
-});
+
+	function find_category(query_value,data)
+	{	
+		if(data["ask"]["results"]==undefined)
+		{
+			$("#networkview").html("Query term entered does not match any term in the database.");
+			return "error";
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=="Pages_with_incomplete_PMID_references")
+		{
+			$("#networkview").html("Query term is returning an identified category- 'Pages_with_incomplete_PMID_references'.");
+			return "error";
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Human_proteins')
+		{
+			generate_gene(query_value);
+			generate_gene_disease(query_value);
+			$("#view_choose").fadeIn();
+			$("#export_options").fadeIn();
+			$("#networkview").html("Loading network about gene "+query_value+"...");
+			$("#view_choose_list").append("<li id='gene_disease_network_display'>Gene->Disease Network</li>");
+			$("#sidebar").fadeIn();
+			return "gene";
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Is_a_snp')
+		{
+			generate_snp(query_value);
+			$("#view_choose").fadeIn();
+			$("#export_options").fadeIn();
+			$("#networkview").html("Loading network about SNP "+query_value+"...");
+			$("#sidebar").fadeOut();
+			return "snp";
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='All_articles_with_dead_external_links')
+		{
+			generate_disease(query_value);
+			$("#view_choose").fadeIn();
+			$("#export_options").fadeIn();			
+			$("#networkview").html("Loading network about disease "+query_value+"...");
+			$("#sidebar").fadeOut();
+			return "disease";
+		}
+	
+	}
