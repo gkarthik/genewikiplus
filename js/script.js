@@ -256,184 +256,97 @@ global_vis2=null;
                 	
                 }
                 //Obtaining category data for each disease
-                $("#networkview2").html("Loading Disease category data...");
-                var all_categories_array=[];
-                var ajax_nodeids=new Array;
-                var ajax_nodelabels=new Array;
-                var ajax_nodelabels_count=0;
-                var ajax_nodecount=-1;
-                var disease_count=0;
-                var data_storage=[];
-                var data_storage_count=-1;
-                inner_label_count=0;
-                for(var temp in network_json["data"]["nodes"])
-                {
-                	if(network_json["data"]["nodes"][temp]["type"]=="disease")
-                	{
-                		disease_count++;
-                	}
-                }
-                //Loop to obtain category data for each disease. Data retrieved is stored in a dictionary, data_storage to avoid problems caused by asynchronous code
-                for(var temp in network_json["data"]["nodes"])
-                {
-                	
-                	if(network_json["data"]["nodes"][temp]["type"]=="disease")
-                	{
-                		ajax_nodeids.push(network_json["data"]["nodes"][temp]["id"]);
-                		ajax_nodelabels.push(network_json["data"]["nodes"][temp]["label"]);
-                		ajax_nodelabels_count++;
-                		$.getJSON("http://genewikiplus.org/api.php?action=query&titles="+ajax_nodelabels[ajax_nodelabels_count-1].replace(" ","+")+"&prop=categories&format=json&callback=?", function(data) {
-							data_storage.push(data);
-									ajax_nodecount++;
-									data_storage_count++;							
-							if(ajax_nodecount==disease_count-1)
-							{								
-								group_nodecategories();// Function to be called at the completion of the dictionary in dta_storage.
-							}
-						});
-                	}
-                }
                 var group_category=[];
-                //Arranging data into a new dictionary variable all_categories_array according to disease cateogory    
-                function group_nodecategories()
+                for(var temp_network in network_json["data"]["nodes"])
                 {
-                		for(var temp_nj in network_json["data"]["nodes"])
-                		{
-                			for(var data_storage_count in data_storage)
-                			{
-									for(var temp3 in data_storage[data_storage_count]["query"]["pages"])
-									{
-										if(data_storage[data_storage_count]["query"]["pages"][temp3]["title"]==network_json["data"]["nodes"][temp_nj]["label"])
-										{
-											for(var temp2 in data_storage[data_storage_count]["query"]["pages"][temp3]["categories"])
-											{
-												if((data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Articles")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Wikipedia")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("pages")==-1)&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("2010")==-1)/*&&(data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"].indexOf("Greek")==-1)*/)
-												{
-													all_categories_array.push({"category":data_storage[data_storage_count]["query"]["pages"][temp3]["categories"][temp2]["title"],"node_disease_id":network_json["data"]["nodes"][temp_nj]["id"],"node_disease_label":network_json["data"]["nodes"][temp_nj]["label"]});
-												}
-											}
-										}			
-									}
-                				
-                			}
-                		
-              			}
-				//Generating a dictionary variable group_category with diseases with common categories under the same element
-                var groupno=0;
-                var group_flag=0;
-                var group_category_index=0;
-                for(var temp in all_categories_array)
-                {
-                	group_flag=0;
-                	count_check=0;
-                	for(var group_temp in group_category)
+                	if(network_json["data"]["nodes"][temp_network]["type"]=="disease")
                 	{
-                		if(group_category[group_temp]["group_category"]==all_categories_array[temp]["category"])
+                		for(var temp in disease_ontology["disease_ontology_roots"])
                 		{
-                			group_flag=1;
-                			group_category_index=group_temp;
+                			if(disease_ontology["disease_ontology_roots"][temp]["do_name"]==network_json["data"]["nodes"][temp_network]["label"].toLowerCase())
+                			{
+                				group_category.push({"do_data":disease_ontology["disease_ontology_roots"][temp],"id":network_json["data"]["nodes"][temp_network]["id"]});
+                			}
                 		}
                 	}
-                		
-                	if(group_flag==0)
-                	{
-                	group_category.push({"group_no":groupno,"group_category":all_categories_array[temp]["category"],"ids":[]});
-                	groupno++;
-                	
-                	for(var temp2 in all_categories_array)
-					{
-						if((all_categories_array[temp2]["category"]==group_category[group_category.length-1]["group_category"]))
-						{
-								group_category[group_category.length-1]["ids"].push(all_categories_array[temp2]["node_disease_id"]);
-						}
-					}
-					}
                 }
-                // Passing data in dictionary to the web interface and forming new links between common category disease nodes to proceed to visualization
-                var to_filter=[];
-                var to_remove=[];
-                to_filter.push("1");
-                var filter_flag=0;
-                var count_category=0;
-                var link_break=0;
-                var filter_flag=0;
-                for(var temp_main in network_json["data"]["nodes"])
+                
+                //After obtaining category data, grouping similar categories together.
+                var rootwise=[];//Library storing diseases root wise.
+                for(var temp in group_category)
                 {
-                	
-                	for(var temp in group_category)
-                {
-                	count_category=0;
-                	
-                	for(var temp2 in group_category[temp]["ids"])
+                	var flag=0;
+                	var current_index=0;
+                	//Loop to ensure no cuplicate entries in rootwise.
+                	for(var temp3 in rootwise)
                 	{
-                		count_category=group_category[temp]["ids"].length;
-                		
-                			if(group_category[temp]["ids"][temp2]==network_json["data"]["nodes"][temp_main]["id"])
-                			{
-                				if(count_category==1)
+                		if(rootwise[temp3]["root"]==group_category[temp]["do_data"]["do_roots"][0]["do_name"])
+                		{
+                			flag=1;
+                			current_index=temp3;
+                		}
+                	}
+                	if(flag==0)
+                	{
+                		rootwise.push({"root":group_category[temp]["do_data"]["do_roots"][0]["do_name"],"diseases":[]});
+                		current_index=rootwise.length-1;
+                	}
+                	for(var temp2 in group_category)
+                	{
+                		//Condition to ensure o duplicate entries in rootwise.
+                		if(temp!=temp2)
+                		{
+                			if(group_category[temp]["do_data"]["do_roots"][0]["do_name"]==group_category[temp2]["do_data"]["do_roots"][0]["do_name"])
+                			{		
+                				var flag_duplicate=0;
+                				for(var temp4 in rootwise[current_index]["diseases"])
                 				{
-                				network_json["data"]["nodes"][temp_main]["label"]+="\n"+group_category[temp]["group_category"];
-                				filter_flag=0;
-                				for(var temp_filter in to_filter)
-                				{
-                					if(to_filter[temp_filter]==group_category[temp]["ids"][temp2])
+                					if(rootwise[current_index]["diseases"][temp4]==group_category[temp2]["do_data"]["do_name"])
                 					{
-                						filter_flag=1;
+                						flag_duplicate=1;
                 					}
                 				}
-                				if(filter_flag==0)
+                				if(flag_duplicate==0)//Condition to ensure o duplicate entries in rootwise.
                 				{
-                				to_filter.push(network_json["data"]["nodes"][temp_main]["id"]);	
-                				}                				
-				 			}
-                			else if(count_category>1)
-                			{
+                					rootwise[current_index]["diseases"].push({"disease_data":group_category[temp2]["do_data"]["do_name"],"id":group_category[temp2]["id"]});	
+                				}
                 				
-                				if(temp2==0)
-                				{
-                				network_json["data"]["nodes"].push({id:String(counter),label:group_category[temp]["group_category"]+"\nDiseases("+count_category+")",type:"category_group",weight:count_category});
-                				network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
-                				to_filter.push(String(counter));                					
-                				}
-                				link_break=0;
-                				for(var temp_edge in network_json["data"]["edges"])
-                				{	
-                				if((network_json["data"]["edges"][temp_edge]["target"]==network_json["data"]["nodes"][temp_main]["id"])&&(network_json["data"]["edges"][temp_edge]["source"]=="1"))
-                				{
-                					link_break=1;
-                					network_json["data"]["edges"][temp_edge]["source"]=String(counter-temp2);
-                					network_json["data"]["edges"][temp_edge]["target"]=network_json["data"]["nodes"][temp_main]["id"];
-                				}
-                				}
-                				if(link_break==0)
-                				{
-									network_json["data"]["edges"].push({"id":String(edgecounter),"source":String(counter-temp2),"target":network_json["data"]["nodes"][temp_main]["id"]});
-									edgecounter++;                					
-                				}
-                				if(temp2==0)
-                				{
-                					counter++;
-                				edgecounter++;
-                				}
-                				to_remove.push(group_category[temp]["ids"][temp2]);
-	
                 			}
                 		}	
-                			
                 	}
+                	if(rootwise[current_index]["diseases"].length==0)
+                	{
+                		rootwise[current_index]["diseases"].push({"disease_data":group_category[temp]["do_data"]["do_name"],"id":group_category[temp]["id"]});
+                	}
+                	
                 }
+                
+                //Redrawing entwork category wise.
+                for(var temp in rootwise)
+                {
+                	network_json["data"]["nodes"].push({id:String(counter),label:rootwise[temp]["root"],type:"category"});
+                	network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter)});
+                	counter++;
+                	edgecounter++;
+                	if(rootwise[temp]["diseases"])
+                	{
+                		
+                	}
+                	for(var temp3 in rootwise[temp]["diseases"])
+                	{
+                		for(var temp2 in network_json["data"]["edges"])
+                		{	
+                			if(network_json["data"]["edges"][temp2]["target"]==rootwise[temp]["diseases"][temp3]["id"])
+                			{
+                				network_json["data"]["edges"][temp2]["target"]=String(counter-1);
+                				network_json["data"]["edges"][temp2]["source"]=rootwise[temp]["diseases"][temp3]["id"];
+                			}
+                		}	
+                	}
+                	
                 }
-                for(var temp_filter in to_filter)
-                				{
-                					for(var temp_remove in to_remove)
-                					{
-                					if(to_filter[temp_filter]==to_remove[temp_remove])
-                					{
-                						to_filter.splice(temp_filter,1);
-                					}	
-                					}
-                					
-                				}
+                
+                
                 				//customizing shape options
                                 var vis = new org.cytoscapeweb.Visualization(div_id, options);
                 global_vis2=vis;
@@ -462,25 +375,8 @@ global_vis2=null;
 									   };
 									   global_vis2=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });	
-                vis.ready(function(){
-					vis.filter("nodes",to_filter);
-					vis.addListener("click", "nodes",function(evt){
-                 			var node=evt.target;
-                 			if(node.data.type=="category_group")
-                 			{
-                 			var all_edges=vis.edges();
-                 			for(var temp in all_edges)
-                 			{
-                 				if(all_edges[temp].data.source==node.data.id)
-                 				{				
-                						to_filter.push(all_edges[temp].data.target);				
-                 				}
-                 			}
-                 			vis.filter("nodes",to_filter);	
-                 			}
-                 		});
-				});
-                }
+                
+                
                 
                     
 	}
@@ -1298,6 +1194,11 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
 		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=="Pages_with_incomplete_PMID_references")
 		{
 			$("#networkview").html("Query term is returning an identified category- 'Pages_with_incomplete_PMID_references'.");
+			return "error";
+		}
+		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=="All_articles_with_unsourced_statements")
+		{
+			$("#networkview").html("Query term is returning an identified category- 'All_articles_with_unsourced_statements'.");
 			return "error";
 		}
 		else if(data["ask"]["results"]["items"][0]["properties"]["type"]["mUrlform"]=='Human_proteins')
