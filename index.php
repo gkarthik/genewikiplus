@@ -21,6 +21,7 @@
     </head>
     
     <body>
+    	<div id="hover_box"></div>
     	<div id="overlay"></div>
     	<div id="wrapper">
     		<div id="litebox">
@@ -40,11 +41,12 @@
     				
     			</ul>
     			-->
-    			Omni Box
-    			Enter gene/SNP/Disease.
-    			<input type="text" id="omni_query" /><input type="submit" id="omni_submit" value="Query" />
+    			<div id="omni_wrapper">
+    			<input type="text" id="omni_query" placeholder="Enter Gene/Snp/Disease" /><input type="submit" id="omni_submit" value="Query" />
+    			
+    			</div>
     			<div id="export_options">
-    				Export network as
+    				
     				<ul>
     					<li id="pdf">PDF</li>
     					<li id="png">PNG</li>

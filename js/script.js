@@ -694,7 +694,16 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                 }
                      var layout = {
   								  name:    "ForceDirected",
-  								  options:{mass: 50,gravitation: -10,maxTime: 100000,minDistance: 20,maxDistance:40,autoStabilize :1 }    					
+  								  options:{
+  								  	mass: 50,
+  								  	gravitation: -10,
+  								  	maxTime: 100000,
+  								  	minDistance: 20,
+  								  	maxDistance:40,
+  								  	autoStabilize :1,
+  								  	weightAttr:"id",
+  								  	weightNorm:"linear" 
+  								  	 }    					
 									};              
                 var options = {
                     swfPath: "swf/CytoscapeWeb",
@@ -887,10 +896,12 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
                  		}
                  		});
                  	vis.addListener("mouseover", "nodes", function(evt){
+                 		
                  		to_select_edges=[];
                  		to_select_nodes=[];
                  		var node=evt.target;
                  		var html="";
+                 		
                  		//to_select_nodes.push(node.data.id);
                  		if(node.data.type=="disease")
                  		{
