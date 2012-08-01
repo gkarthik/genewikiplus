@@ -49,7 +49,7 @@
     			<div id="tabulardata"></div>
     			<div id="networkview">Query for Genes,SNPs and Diseases from the left sidebar. The network will be generated here.</div>
     			<div id="networkview2">Gene-Disease network</div>
-    			<div id="sidebar"></div>
+    		
     		</div>
     		
     	</div>
