@@ -7,13 +7,13 @@ var data_CFH_disease={"ask":{"query":{"q":"[[CFH]]","po":["is_associated_with_di
 function get_data()
 {
 	$("#networkview").html("Loading network on gene, "+$("#omni_query").val());
-//	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
-		var data=data_CFH;
+	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
+		//var data=data_CFH;
 		$("#view_choose").fadeIn();
 		$("#export_options").fadeIn();
 		generate_network(data);
 		table_gene(data);
-	//});		
+	});		
 }
 
 function generate_network(data)
@@ -250,7 +250,7 @@ function generate_network(data)
 					}
 				}	
 					   
-                //$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+gene_disease_query+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
+                $.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
 				data=data_CFH_disease;
 				var flag_disease=0;
 				if(data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"] instanceof Array)
@@ -479,7 +479,7 @@ function generate_network(data)
     					vis.filter("nodes",to_display);
     				});
     					});	
-				//});	
+			});	
                 
     				
     			
