@@ -7,13 +7,13 @@ var data_CFH_disease={"ask":{"query":{"q":"[[CFH]]","po":["is_associated_with_di
 function get_data()
 {
 	$("#networkview").html("Loading network on gene, "+$("#omni_query").val());
-	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
-		//var data=data_CFH;
+	//$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
+		var data=data_CFH;
 		$("#view_choose").fadeIn();
 		$("#export_options").fadeIn();
 		generate_network(data);
 		table_gene(data);
-	});		
+	//});		
 }
 
 function generate_network(data)
@@ -250,7 +250,7 @@ function generate_network(data)
 					}
 				}	
 					   
-                $.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
+                //$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
 				data=data_CFH_disease;
 				var flag_disease=0;
 				if(data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"] instanceof Array)
@@ -293,8 +293,8 @@ function generate_network(data)
 						}
 						if(flag_disease==0)
 						{
-								network_json["data"]["nodes"].push({id:String(counter-1),label:data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"],type:"disease"});
-								network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter-1),source:"1"});
+								network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"],type:"disease"});
+								network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1"});
 								to_display.push(String(counter));
 								counter++;
 								edgecounter++;
@@ -310,7 +310,7 @@ function generate_network(data)
 					{
 						for(var temp_do in disease_ontology["disease_ontology_roots"])
 						{
-							if(disease_ontology["disease_ontology_roots"][temp_do]["do_name"]==network_json["data"]["nodes"][temp]["label"].toLowerCase())
+							if(disease_ontology["disease_ontology_roots"][temp_do]["do_name"]==network_json["data"]["nodes"][temp]["label"].toLowerCase()||disease_ontology["disease_ontology_roots"][temp_do]["do_name"]==network_json["data"]["nodes"][temp]["label"])
 							{
 								repeat_flag=0;
 								for(var temp_root in rootwise)
@@ -340,6 +340,20 @@ function generate_network(data)
 					}
 				}
 				
+				//Adding numbers to parent categories
+					for(var temp in network_json["data"]["nodes"])
+					{
+						if(network_json["data"]["nodes"][temp]["type"]=="category")
+						{
+							for(var temp2 in rootwise)
+							{
+								if(rootwise[temp2]["root"]==network_json["data"]["nodes"][temp]["label"])
+								{
+									network_json["data"]["nodes"][temp]["label"]+="("+rootwise[temp2]["sub_ids"].length+")";
+								}
+							}
+						}
+					}
 				//Rearranging network - Changing all edges of SNPs from diseases to root node.
 				var edge_count=0;
 				for(var temp in rootwise)
@@ -355,21 +369,12 @@ function generate_network(data)
 								{
 									if(network_json["data"]["edges"][temp4]["target"]==network_json["data"]["edges"][temp2]["source"]&&network_json["data"]["edges"][temp4]["source"]=="1")
 									{
-										network_json["data"]["edges"][temp4]["source"]=rootwise[temp]["parent_id"];
+										network_json["data"]["edges"][temp4]["source"]=rootwise[temp]["parent_id"];	
 									}
-									if(network_json["data"]["edges"][temp4]["target"]==network_json["data"]["edges"][temp2]["source"]&&network_json["data"]["edges"][temp4]["source"]!="1")
-									{
-										for(var temp5 in rootwise)
-										{
-											for(var temp6 in rootwise[temp5]["sub_ids"])
-											{
-												if(rootwise[temp5]["sub_ids"][temp6]==network_json["data"]["edges"][temp4]["source"])
-												{
-													network_json["data"]["edges"].push({id:String(edgecounter),source:rootwise[temp5]["parent_id"],target:network_json["data"]["edges"][temp4]["target"]});			
-												}		
-											}
-										}
-										
+									if(network_json["data"]["edges"][temp4]["target"]==network_json["data"]["edges"][temp2]["source"]&&network_json["data"]["edges"][temp4]["source"]!="1"&&network_json["data"]["edges"][temp4]["source"]!=rootwise[temp]["parent_id"])
+									{										
+										network_json["data"]["edges"].push({id:String(edgecounter),source:rootwise[temp]["parent_id"],target:network_json["data"]["edges"][temp4]["target"]});	
+										edgecounter++;					
 									}
 								}							
 							}	
@@ -377,6 +382,7 @@ function generate_network(data)
 						
 					}
 				}
+				console.log(rootwise);
 				//Connecting disease nodes with no SNP s involved in the gene.
 				var has_root=0;
 				var bugged_edge=0;
@@ -412,19 +418,86 @@ function generate_network(data)
 						
 					}
 				}
+				
+				//Filtering network.
+				var two_step=[];
+				for(var temp in network_json["data"]["nodes"])
+				{
+					if(network_json["data"]["nodes"][temp]["type"]=="q"||network_json["data"]["nodes"][temp]["type"]=="category")
+					{
+						for(var temp2 in to_display)
+						{
+							if(to_display[temp2]==network_json["data"]["nodes"][temp]["id"])
+							{
+								two_step.push(to_display[temp2]);
+							}
+						}
+					}
+				}
 				var click_filter=[];
 				global_vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
     			vis.ready(function(){
+    				vis.filter("nodes",two_step);
+    				vis.addListener("click","nodes",function(evt){
+    					var node=evt.target;
+    					var next_step=[];
+    					if(node.data.type=="category")
+    					{
+    						var fNeighbors = vis.firstNeighbors([node],false);
+            				var neighborNodes = fNeighbors.neighbors;
+            				var flag=0;
+            				var flag_main=0;
+    						for(var temp in neighborNodes)
+    						{
+    							if(neighborNodes[temp]["data"]["type"]=="SNPcount"||neighborNodes[temp]["data"]["type"]=="SNP")
+    							{
+    								var fNeighbors2 = vis.firstNeighbors([neighborNodes[temp]["data"]["id"]],false);
+            						var neighborNodes2 = fNeighbors2.neighbors;
+    								for(var temp2 in neighborNodes2)
+    								{
+    									flag=0;
+    									for(var temp3 in to_display)
+    									{
+       										if(to_display[temp3]==neighborNodes2[temp2]["data"]["id"])
+    										{
+    											flag=1;
+    											
+    										}
+    									}
+    									
+    									if(flag==1)
+    									{
+    										two_step.push(neighborNodes2[temp2]["data"]["id"]);
+    									}
+    								}	
+    							}
+    							flag_main=0;
+    							for(var temp3 in to_display)
+    							{
+       								if(to_display[temp3]==neighborNodes[temp]["data"]["id"])
+    								{
+    									flag_main=1;
+    								}
+    							}
+    							
+    							if(flag_main==1)
+    							{
+    								two_step.push(neighborNodes[temp]["data"]["id"]);	
+    							}
+    						}
+    						vis.filter("nodes",two_step);	
+    					}
+    				});
     				function hover_glow(rootNode)
     				{
-    					console.log(rootNode);
+    					
     					hover_select=0;
     					var fNeighbors = vis.firstNeighbors([rootNode],true);
             			var neighborNodes = fNeighbors.neighbors;
 						vis.select(neighborNodes);
     					neighborNodes = fNeighbors.neighbors;
-    					//console.log(neighborNodes);
+    					
     					vis.select(["1"]).select(neighborNodes);
     					var neighbor_chain;
     						for(var temp in neighborNodes)
@@ -436,7 +509,7 @@ function generate_network(data)
     						vis.deselect("nodes",[rootNode.data.id]);
     				}
     				var hover_select=0;
-    				vis.filter("nodes",to_display);
+    				
     				vis.addListener("mouseover","nodes",function(evt){
     					var rootNode = evt.target;
     					hover_glow(rootNode);
@@ -452,11 +525,11 @@ function generate_network(data)
     					var node=evt.target;
     					if(node.data.type=="SNPcount")
     					{
-    						for(var temp in to_display)
+    						for(var temp in two_step)
     						{
-    							if(to_display[temp]==node.data.id)
+    							if(two_step[temp]==node.data.id)
     							{
-    								to_display.splice(temp,1);
+    								two_step.splice(temp,1);
     							}
     						}
     						for(var temp in network_json["data"]["edges"])
@@ -469,17 +542,17 @@ function generate_network(data)
     									{
     										for(var temp3 in snp_lib[temp2]["snp_sub"])
     										{
-    											to_display.push(snp_lib[temp2]["snp_sub"][temp3]);	
+    											two_step.push(snp_lib[temp2]["snp_sub"][temp3]);	
     										}
     									}
     								}
     							}
     						}				
     					}
-    					vis.filter("nodes",to_display);
+    					vis.filter("nodes",two_step);
     				});
     					});	
-			});	
+			//});	
                 
     				
     			
@@ -537,6 +610,7 @@ $("#omni_submit").click(function(){
 	{
 		get_data();
 	}
+	
 });	
 
 $("#export_options ul li").click(function(){
