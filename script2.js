@@ -1,19 +1,21 @@
 /**
  * @author gkarthik
  */
+
+
 var global_vis;
 var data_CFH={"ask":{"query":{"q":"[[in_gene::CFH]]","po":["is associated with disease"]},"results":{"count":28,"items":[{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1061147","mUrlform":"Rs1061147","mDbkeyform":"Rs1061147","mUserCaseDBKey":"Rs1061147","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1061147"},{"properties":{"is_associated_with_disease":["Age related macular degeneration","Coronary heart disease"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1061170","mUrlform":"Rs1061170","mDbkeyform":"Rs1061170","mUserCaseDBKey":"Rs1061170","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1061170"},{"properties":{"is_associated_with_disease":"Ulcerative colitis","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1065489","mUrlform":"Rs1065489","mDbkeyform":"Rs1065489","mUserCaseDBKey":"Rs1065489","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1065489"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs10737680","mUrlform":"Rs10737680","mDbkeyform":"Rs10737680","mUserCaseDBKey":"Rs10737680","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs10737680"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs10801555","mUrlform":"Rs10801555","mDbkeyform":"Rs10801555","mUserCaseDBKey":"Rs10801555","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs10801555"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs12144939","mUrlform":"Rs12144939","mDbkeyform":"Rs12144939","mUserCaseDBKey":"Rs12144939","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs12144939"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1329424","mUrlform":"Rs1329424","mDbkeyform":"Rs1329424","mUserCaseDBKey":"Rs1329424","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1329424"},{"properties":{"is_associated_with_disease":["Blindness","Age related macular degeneration"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1329428","mUrlform":"Rs1329428","mDbkeyform":"Rs1329428","mUserCaseDBKey":"Rs1329428","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1329428"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1410996","mUrlform":"Rs1410996","mDbkeyform":"Rs1410996","mUserCaseDBKey":"Rs1410996","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1410996"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1576340","mUrlform":"Rs1576340","mDbkeyform":"Rs1576340","mUserCaseDBKey":"Rs1576340","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1576340"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs1831281","mUrlform":"Rs1831281","mDbkeyform":"Rs1831281","mUserCaseDBKey":"Rs1831281","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs1831281"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs203674","mUrlform":"Rs203674","mDbkeyform":"Rs203674","mUserCaseDBKey":"Rs203674","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs203674"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs2274700","mUrlform":"Rs2274700","mDbkeyform":"Rs2274700","mUserCaseDBKey":"Rs2274700","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs2274700"},{"properties":{"is_associated_with_disease":"Hemolytic-uremic syndrome","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs28929497","mUrlform":"Rs28929497","mDbkeyform":"Rs28929497","mUserCaseDBKey":"Rs28929497","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs28929497"},{"properties":{"is_associated_with_disease":["Blindness","Ulcerative colitis"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs3753394","mUrlform":"Rs3753394","mDbkeyform":"Rs3753394","mUserCaseDBKey":"Rs3753394","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs3753394"},{"properties":{"is_associated_with_disease":["Age related macular degeneration","Ulcerative colitis"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs3753396","mUrlform":"Rs3753396","mDbkeyform":"Rs3753396","mUserCaseDBKey":"Rs3753396","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs3753396"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs3766404","mUrlform":"Rs3766404","mDbkeyform":"Rs3766404","mUserCaseDBKey":"Rs3766404","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs3766404"},{"properties":{"is_associated_with_disease":["Blindness","Age related macular degeneration"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs380390","mUrlform":"Rs380390","mDbkeyform":"Rs380390","mUserCaseDBKey":"Rs380390","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs380390"},{"properties":{"is_associated_with_disease":"Hemolytic-uremic syndrome","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs460897","mUrlform":"Rs460897","mDbkeyform":"Rs460897","mUserCaseDBKey":"Rs460897","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs460897"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs514943","mUrlform":"Rs514943","mDbkeyform":"Rs514943","mUserCaseDBKey":"Rs514943","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs514943"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs529825","mUrlform":"Rs529825","mDbkeyform":"Rs529825","mUserCaseDBKey":"Rs529825","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs529825"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs551397","mUrlform":"Rs551397","mDbkeyform":"Rs551397","mUserCaseDBKey":"Rs551397","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs551397"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs572515","mUrlform":"Rs572515","mDbkeyform":"Rs572515","mUserCaseDBKey":"Rs572515","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs572515"},{"properties":{"is_associated_with_disease":["IgA glomerulonephritis","Systemic lupus erythematosus"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs6677604","mUrlform":"Rs6677604","mDbkeyform":"Rs6677604","mUserCaseDBKey":"Rs6677604","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs6677604"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs7524776","mUrlform":"Rs7524776","mDbkeyform":"Rs7524776","mUserCaseDBKey":"Rs7524776","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs7524776"},{"properties":{"is_associated_with_disease":"Age related macular degeneration","type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs7535263","mUrlform":"Rs7535263","mDbkeyform":"Rs7535263","mUserCaseDBKey":"Rs7535263","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs7535263"},{"properties":{"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs7540032","mUrlform":"Rs7540032","mDbkeyform":"Rs7540032","mUserCaseDBKey":"Rs7540032","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs7540032"},{"properties":{"is_associated_with_disease":["Blindness","Age related macular degeneration"],"type":{"mTextform":"Is a snp","mUrlform":"Is_a_snp","mDbkeyform":"Is_a_snp","mUserCaseDBKey":"Is_a_snp","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Is a snp","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Rs800292","mUrlform":"Rs800292","mDbkeyform":"Rs800292","mUserCaseDBKey":"Rs800292","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Rs800292"}]},"result":"Success"}}
 var data_CFH_disease={"ask":{"query":{"q":"[[CFH]]","po":["is_associated_with_disease"]},"results":{"count":1,"items":[{"properties":{"is_associated_with_disease":["Membranoproliferative glomerulonephritis","Kidney failure","Myocardial infarction","Thrombocytopenia","Syndrome","Age related macular degeneration","Hemolytic-uremic syndrome"],"type":{"mTextform":"Human proteins","mUrlform":"Human_proteins","mDbkeyform":"Human_proteins","mUserCaseDBKey":"Human_proteins","mNamespace":14,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":"Category:Human proteins","mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null}},"title":{"mTextform":"Factor H","mUrlform":"Factor_H","mDbkeyform":"Factor_H","mUserCaseDBKey":"Factor_H","mNamespace":0,"mInterwiki":"","mFragment":"","mArticleID":-1,"mLatestID":false,"mRestrictions":[],"mOldRestrictions":false,"mCascadeRestriction":null,"mCascadingRestrictions":null,"mRestrictionsExpiry":[],"mHasCascadingRestrictions":null,"mCascadeSources":null,"mRestrictionsLoaded":false,"mPrefixedText":null,"mTitleProtection":null,"mDefaultNamespace":0,"mWatched":null,"mLength":-1,"mRedirect":null,"mNotificationTimestamp":[],"mBacklinkCache":null},"uri":"http:\/\/genewikiplus.org\/index.php?title=Factor H"}]},"result":"Success"}};
 function get_data()
 {
 	$("#networkview").html("Loading network on gene, "+$("#omni_query").val());
-	//$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
-		var data=data_CFH;
+	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
+	//	var data=data_CFH;
 		$("#view_choose").fadeIn();
 		$("#export_options").fadeIn();
 		generate_network(data);
 		table_gene(data);
-	//});		
+	});		
 }
 
 function generate_network(data)
@@ -21,38 +23,37 @@ function generate_network(data)
 	var div_id = "networkview";
                 var network_json = {
                         dataSchema: {
-                    		nodes: [ { name: "label", type: "string" }, { name:"type", type:"string"}, { name:"weight", type:"integer"}
+                    		nodes: [ { name: "label", type: "string" }, { name:"type", type:"string"}, { name:"weight", type:"integer"}, { name:"root_colour", type:"string"}
            		         	],
 							edges: [ { name: "label", type: "string"},
-							{ name: "weight", type: "integer"}						         
+							{ name: "weight", type: "integer"},
+							{ name: "root_colour", type: "string"}						         
 							]
                     	},
                         data: { }
                 };
                 var sizeMapper = { attrName: "weight",  minValue: 10, maxValue: 100, minAttrValue:10 };
-                var colorMapper = {attrName: "type",
-        						   entries: [ { attrValue: "q", value: "#ff0000" },
-                   							  { attrValue: "disease", value: "#00ff00" },
-                   							  { attrValue: "SNP", value: "yellow" } ]
-								  };
-				
                 var visual_style = {
                     global: {
                         backgroundColor: "#ABCFD6"
                     },
                     nodes: {
-                    	color:{discreteMapper: colorMapper},
+                    	color:{ customMapper: { functionName: "customColor" }},
                         shape: { customMapper: { functionName: "customShape" }},
                         borderWidth: 3,
                         borderColor: "#ffffff",
                         labelFontSize : { customMapper: { functionName: "customSize" } },
                         size:"auto",
-                        selectionColor : "#FFF",
                         selectionBorderColor : "#000",
                         selectionBorderWidth :10,
                         hoverBorderColor :"#000",
                         hoverBorderWidth :10
-                       }
+                      },
+                      edges:{
+                      	color:{ customMapper: { functionName: "customEdgeColor" }},
+                      	width:10,
+                      	targetArrowShape: "CIRCLE"
+                      }
                      };
   
                 network_json["data"]["nodes"]=[];
@@ -72,7 +73,7 @@ function generate_network(data)
                 {
                 	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["title"]["mTextform"],type:"SNP"});
                 	secondary_centre=counter;
-                	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1"});
+                	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1",root_colour:""});
                 	edgecounter++;
 					counter++;
 					if(data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"] instanceof Array)
@@ -80,7 +81,7 @@ function generate_network(data)
 	            	for(var temp_disease in data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"])
                 	{
                 	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"][temp_disease],type:"disease"});
-                	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:String(secondary_centre)});
+                	network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:String(secondary_centre),root_colour:""});
                 	edgecounter++;
                 	counter++;	
                 	}
@@ -90,14 +91,11 @@ function generate_network(data)
 						if(data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"])
 						{
 							network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["properties"]["is_associated_with_disease"],type:"disease"});
-                			network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:String(secondary_centre)});
+                			network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:String(secondary_centre),root_colour:""});
                 			edgecounter++;
                 			counter++;		
 						}
-	            		
-    
 					}
-                	
                 }
                 
                      var layout = {
@@ -126,6 +124,26 @@ function generate_network(data)
                   vis["customSize"] = function (data) {
     								   		var size = 35+Math.round(1.5*data["weight"]);
 											return size;	
+									   };
+				  vis["customColor"] = function (data) {
+				  							if(data["root_colour"]=="")
+				  							{
+				  								return "#FFF";	
+				  							}
+				  							else
+				  							{
+				  								return data["root_colour"];
+				  							}
+									   };
+									   vis["customEdgeColor"] = function (data) {
+				  							if(data["root_colour"]=="")
+				  							{
+				  								return "#FFF";	
+				  							}
+				  							else
+				  							{
+				  								return data["root_colour"];
+				  							}
 									   };
 				vis["customShape"] = function (data) {
     								   if(data["type"]=="disease")
@@ -239,9 +257,9 @@ function generate_network(data)
 						if(node_counter>1)
 						{
 							network_json["data"]["nodes"].push({id:String(counter),label:"SNP("+node_counter+")",type:"SNPcount",weight:node_counter});
-							network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter),weight:node_counter});
+							network_json["data"]["edges"].push({id:String(edgecounter),source:"1",target:String(counter),weight:node_counter,root_colour:""});
 							edgecounter++;
-							network_json["data"]["edges"].push({id:String(edgecounter),source:String(counter),target:network_json["data"]["nodes"][temp]["id"],weight:node_counter});
+							network_json["data"]["edges"].push({id:String(edgecounter),source:String(counter),target:network_json["data"]["nodes"][temp]["id"],weight:node_counter,root_colour:""});
 							network_json["data"]["nodes"][temp]["weight"]=node_counter;
 							to_display.push(String(counter));
 							counter++;
@@ -250,8 +268,8 @@ function generate_network(data)
 					}
 				}	
 					   
-                //$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
-				data=data_CFH_disease;
+                $.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
+				//data=data_CFH_disease;
 				var flag_disease=0;
 				if(data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"] instanceof Array)
 				{
@@ -271,7 +289,7 @@ function generate_network(data)
 						if(flag_disease==0)
 						{
 								network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"][temp_disease],type:"disease"});
-								network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1"});
+								network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1",root_colour:""});
 								to_display.push(String(counter));
 								counter++;
 								edgecounter++;
@@ -294,7 +312,7 @@ function generate_network(data)
 						if(flag_disease==0)
 						{
 								network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"],type:"disease"});
-								network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1"});
+								network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter),source:"1",root_colour:""});
 								to_display.push(String(counter));
 								counter++;
 								edgecounter++;
@@ -323,12 +341,13 @@ function generate_network(data)
 								}
 								if(repeat_flag==0)
 								{
-									network_json["data"]["nodes"].push({id:String(counter),label:disease_ontology["disease_ontology_roots"][temp_do]["do_roots"][0]["do_name"],type:"category"});
+									var colour=String('#'+Math.floor(Math.random()*16777215).toString(16));
+									network_json["data"]["nodes"].push({id:String(counter),label:disease_ontology["disease_ontology_roots"][temp_do]["do_roots"][0]["do_name"],type:"category",root_colour:colour});
 									to_display.push(String(counter));
-									rootwise.push({"root":disease_ontology["disease_ontology_roots"][temp_do]["do_roots"][0]["do_name"],"parent_id":String(counter),"sub_ids":[]});
+									rootwise.push({"root":disease_ontology["disease_ontology_roots"][temp_do]["do_roots"][0]["do_name"],"parent_id":String(counter),"sub_ids":[],"root_colour":colour});
 									rootwise[rootwise.length-1]["sub_ids"].push(String(network_json["data"]["nodes"][temp]["id"]));
 									counter++;
-									network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter-1),source:"1"});
+									network_json["data"]["edges"].push({id:String(edgecounter),target:String(counter-1),source:"1",root_colour:""});
 									edgecounter++;
 								}
 								if(repeat_flag==1)
@@ -339,7 +358,20 @@ function generate_network(data)
 						}
 					}
 				}
-				
+				//Coloring disease nodes
+				for(var temp in network_json["data"]["nodes"])
+				{
+					for(var temp2 in rootwise)
+					{
+						for(var temp3 in rootwise[temp2]["sub_ids"])
+						{
+							if(network_json["data"]["nodes"][temp]["id"]==rootwise[temp2]["sub_ids"][temp3])
+							{		
+								network_json["data"]["nodes"][temp]["root_colour"]=rootwise[temp2]["root_colour"];
+							}		
+						}
+					}
+				}
 				//Adding numbers to parent categories
 					for(var temp in network_json["data"]["nodes"])
 					{
@@ -369,11 +401,18 @@ function generate_network(data)
 								{
 									if(network_json["data"]["edges"][temp4]["target"]==network_json["data"]["edges"][temp2]["source"]&&network_json["data"]["edges"][temp4]["source"]=="1")
 									{
-										network_json["data"]["edges"][temp4]["source"]=rootwise[temp]["parent_id"];	
+										network_json["data"]["edges"][temp4]["source"]=rootwise[temp]["parent_id"];
+										for(var temp_colour in network_json["data"]["nodes"])
+										{
+											if(network_json["data"]["nodes"][temp_colour]["id"]==network_json["data"]["edges"][temp4]["target"])
+											{
+												network_json["data"]["nodes"][temp_colour]["root_colour"]=rootwise[temp]["root_colour"];
+											}
+										}
 									}
 									if(network_json["data"]["edges"][temp4]["target"]==network_json["data"]["edges"][temp2]["source"]&&network_json["data"]["edges"][temp4]["source"]!="1"&&network_json["data"]["edges"][temp4]["source"]!=rootwise[temp]["parent_id"])
 									{										
-										network_json["data"]["edges"].push({id:String(edgecounter),source:rootwise[temp]["parent_id"],target:network_json["data"]["edges"][temp4]["target"]});	
+										network_json["data"]["edges"].push({id:String(edgecounter),source:rootwise[temp]["parent_id"],target:network_json["data"]["edges"][temp4]["target"],root_colour:""});	
 										edgecounter++;					
 									}
 								}							
@@ -382,7 +421,6 @@ function generate_network(data)
 						
 					}
 				}
-				console.log(rootwise);
 				//Connecting disease nodes with no SNP s involved in the gene.
 				var has_root=0;
 				var bugged_edge=0;
@@ -415,11 +453,22 @@ function generate_network(data)
 								}
 							}	
 						}
-						
 					}
 				}
 				
-				//Filtering network.
+				//Coloring Edges
+				for(var temp in network_json["data"]["edges"])
+				{
+					for(var temp2 in network_json["data"]["nodes"])
+					{
+						if(network_json["data"]["edges"][temp]["target"]==network_json["data"]["nodes"][temp2]["id"])
+						{
+							network_json["data"]["edges"][temp]["root_colour"]=network_json["data"]["nodes"][temp2]["root_colour"];
+							console.log(network_json["data"]["nodes"][temp2]["root_colour"]);
+						}
+					}
+				}
+				//Filtering network for Step 1 Gene->Root terms network.
 				var two_step=[];
 				for(var temp in network_json["data"]["nodes"])
 				{
@@ -491,7 +540,6 @@ function generate_network(data)
     				});
     				function hover_glow(rootNode)
     				{
-    					
     					hover_select=0;
     					var fNeighbors = vis.firstNeighbors([rootNode],true);
             			var neighborNodes = fNeighbors.neighbors;
@@ -552,7 +600,7 @@ function generate_network(data)
     					vis.filter("nodes",two_step);
     				});
     					});	
-			//});	
+			});	
                 
     				
     			
