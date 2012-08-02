@@ -21,6 +21,8 @@
     </head>
     
     <body>
+    	<div id="hover_data"><img src="close.png" id="close_data" /></div>
+    	<div id="hover_tooltip"><span id="show_data">Show data</span> | <span id="close">Close</span></div>
     	<div id="wrapper">
     		
     		<div id="leftsidebar">
