@@ -143,9 +143,10 @@ border-radius: 10px;
 {
 	
 	float:left;
-	width:1200px;
+	width:1180px;
 	height:1000px;
-	
+	padding:10px;
+	background:#ABCFD6;
 }
 
 #networkview2

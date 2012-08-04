@@ -2,7 +2,6 @@
  * @author gkarthik
  */
 
-
 var global_vis;
 var global_hover="";
 var network_json=[];
@@ -13,13 +12,13 @@ var data_CFH_disease={"ask":{"query":{"q":"[[P53]]","po":["is_associated_with_di
 function get_data()
 {
 	$("#networkview").html("Loading network on gene, "+$("#omni_query").val());
-	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
-	//	var data=data_CFH;
+	//$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
+		var data=data_CFH;
 		$("#view_choose").fadeIn();
 		$("#export_options").fadeIn();
 		generate_network(data);
 		table_gene(data);
-	});		
+	//});		
 }
 
 function generate_network(data)
@@ -109,9 +108,10 @@ function generate_network(data)
   								  options:{
   								  	mass: 200,
   								  	gravitation: -10,
+  								  	tension:5,
   								  	maxTime: 100000,
-  								  	minDistance: 100,
-  								  	maxDistance:300,
+  								  	minDistance: 500,
+  								  	//maxDistance:1000,
   								  	autoStabilize :1,
   								  	weightAttr:"weight",
   								  	weightNorm:"invlinear",
@@ -128,7 +128,7 @@ function generate_network(data)
                 };
                 var vis = new org.cytoscapeweb.Visualization(div_id, options); 
                   vis["customSize"] = function (data) {
-    								   		var size = 35+Math.round(1.5*data["weight"]);
+    								   		var size =72+Math.round(1.5*data["weight"]);
 											return size;	
 									   };
 				  vis["customLabelColor"] = function (data) {
@@ -284,8 +284,8 @@ function generate_network(data)
 						}
 					}
 				}	
-                $.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
-				//data=data_CFH_disease;
+                //$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+$("#omni_query").val()+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
+				data=data_CFH_disease;
 				var flag_disease=0;
 				if(data["ask"]["results"]["items"][0]["properties"]["is_associated_with_disease"] instanceof Array)
 				{
@@ -565,7 +565,8 @@ function generate_network(data)
     								two_step.push(neighborNodes[temp]["data"]["id"]);	
     							}
     						}
-    						vis.filter("nodes",two_step);	
+    						vis.filter("nodes",two_step);
+    						vis.zoomToFit();	
     					}
     				});
     				
@@ -635,9 +636,11 @@ function generate_network(data)
     						}				
     					}
     					vis.filter("nodes",two_step);
+    					vis.zoomToFit();
     				});
+    				vis.zoomToFit();
     					});	
-			});
+			//});
 }
 
 function table_gene(data)
