@@ -18,6 +18,7 @@ function get_data()
 		//var data=data_CFH;
 		$("#view_choose").fadeIn();
 		$("#export_options").fadeIn();
+		color_schemeedit=[{"bg":"#FFF200","fg":"#6600C4"},{"bg":"#0073BD","fg":"#FF8E00"},{"bg":"#D4FA00","fg":"#B300CD"},{"bg":"#FF7F00","fg":"#0096BA"},{"bg":"#A63A00","fg":"#FFA473"},{"bg":"#A4008","fg":"#78EF6B"},{"bg":"#A300C","fg":"#7EEF6C"},{"bg":"#98A400","fg":"#F3FE72"},{"bg":"#5F007E","fg":"#EAFC00"},{"bg":"#FFDC40","fg":"#2A00C6"},{"bg":"#FF9973","fg":"#008146"}];
 		generate_network(data);
 		table_gene(data);
 	});		
