@@ -15,7 +15,7 @@ function get_data()
 {
 	$("#networkview").html("Loading network on gene, "+$("#omni_query").val());
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+$("#omni_query").val()+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
-	//	var data=data_CFH;
+		//var data=data_CFH;
 		$("#view_choose").fadeIn();
 		$("#export_options").fadeIn();
 		generate_network(data);
@@ -134,7 +134,7 @@ function generate_network(data)
 											return size;	
 									   };
 				  vis["customLabelColor"] = function (data) {
-				  	console.log(color_scheme)
+				  	
 				  								for(var temp in color_scheme)
 				  								{
 				  									if(color_scheme[temp]["bg"]==data["root_colour"])
@@ -196,7 +196,6 @@ function generate_network(data)
                 	counter_per_node=0;
                 	for(var temp_node2 in network_json["data"]["nodes"])
                 	{
-                		
                 		if(network_json["data"]["nodes"][temp_node]["label"]==network_json["data"]["nodes"][temp_node2]["label"])
                 		{
                 			counter_per_node++;
@@ -269,7 +268,6 @@ function generate_network(data)
 										snp_lib[snp_lib.length-1]["snp_sub_label"].push(network_json["data"]["nodes"][temp_lib]["label"]);		
 									}
 								}
-								
 								node_counter++;
 								node_snp.push(network_json["data"]["edges"][temp2]["source"]);
 							}
@@ -387,7 +385,7 @@ function generate_network(data)
 						}
 					}
 				}
-				console.log(rootwise);
+				
 				//Coloring disease nodes
 				for(var temp in network_json["data"]["nodes"])
 				{
@@ -497,13 +495,16 @@ function generate_network(data)
 						}
 					}
 				}
-				
 				//Coloring Edges
 				for(var temp in network_json["data"]["edges"])
 				{
 					for(var temp2 in network_json["data"]["nodes"])
 					{
-						if(network_json["data"]["edges"][temp]["target"]==network_json["data"]["nodes"][temp2]["id"])
+						if(network_json["data"]["edges"][temp]["source"]==network_json["data"]["nodes"][temp2]["id"]&&network_json["data"]["edges"][temp]["source"]!="1"&&network_json["data"]["nodes"][temp2]["type"]=="category")
+						{
+							network_json["data"]["edges"][temp]["root_colour"]=network_json["data"]["nodes"][temp2]["root_colour"];
+						}	
+						else if(network_json["data"]["edges"][temp]["target"]==network_json["data"]["nodes"][temp2]["id"])
 						{
 							network_json["data"]["edges"][temp]["root_colour"]=network_json["data"]["nodes"][temp2]["root_colour"];
 						}
@@ -532,48 +533,47 @@ function generate_network(data)
     				vis.addListener("click","nodes",function(evt){
     					var node=evt.target;
     					var next_step=[];
+    					var category_label=[];
     					if(node.data.type=="category")
     					{
-    						var fNeighbors = vis.firstNeighbors([node],false);
-            				var neighborNodes = fNeighbors.neighbors;
-            				var flag=0;
-            				var flag_main=0;
-    						for(var temp in neighborNodes)
+    						for(var temp in rootwise)
     						{
-    							if(neighborNodes[temp]["data"]["type"]=="SNPcount"||neighborNodes[temp]["data"]["type"]=="SNP")
+    							if(rootwise[temp]["root"]==node.data.label.replace(/(\d+)/g,"").replace("()",""))
     							{
-    								var fNeighbors2 = vis.firstNeighbors([neighborNodes[temp]["data"]["id"]],false);
-            						var neighborNodes2 = fNeighbors2.neighbors;
-    								for(var temp2 in neighborNodes2)
+    								category_label=rootwise[temp]["sub_ids"];	
+    							}	
+    						}	
+    						for(var temp in network_json["data"]["edges"])
+    						{
+    							if(network_json["data"]["edges"][temp]["source"]==node.data.id)
+    							{
+    								two_step.push(network_json["data"]["edges"][temp]["target"]);
+    								for(var temp2 in network_json["data"]["edges"])
     								{
-    									flag=0;
-    									for(var temp3 in to_display)
+    									if(network_json["data"]["edges"][temp2]["source"]==network_json["data"]["edges"][temp]["target"])
     									{
-       										if(to_display[temp3]==neighborNodes2[temp2]["data"]["id"])
+    										for(var temp3 in category_label)
     										{
-    											flag=1;
-    											
+    											if(category_label[temp3]==network_json["data"]["edges"][temp2]["target"])
+    											{
+    												
+    												var flag=0;
+    												for(var temp4 in to_display)
+    												{
+    													if(to_display[temp4]==network_json["data"]["edges"][temp2]["target"])
+    													{
+    														flag=1;
+    													}
+    												}
+    												if(flag==1)
+    												{
+    													two_step.push(network_json["data"]["edges"][temp2]["target"]);	
+    												}
+    													
+    											}
     										}
-    									}
-    									
-    									if(flag==1)
-    									{
-    										two_step.push(neighborNodes2[temp2]["data"]["id"]);
-    									}
-    								}	
-    							}
-    							flag_main=0;
-    							for(var temp3 in to_display)
-    							{
-       								if(to_display[temp3]==neighborNodes[temp]["data"]["id"])
-    								{
-    									flag_main=1;
+    									}	
     								}
-    							}
-    							
-    							if(flag_main==1)
-    							{
-    								two_step.push(neighborNodes[temp]["data"]["id"]);	
     							}
     						}
     						vis.filter("nodes",two_step);
@@ -585,7 +585,7 @@ function generate_network(data)
     				{
     					global_hover={id:rootNode.data.id,label:rootNode.data.label,category:rootNode.data.type};
     					$("#hover_tooltip").css({'left':rootNode.x+60,'top':rootNode.y+161});
-    					$("#hover_tooltip").css({'display':'block'});;
+    					$("#hover_tooltip").css({'display':'block'});
 					}
     				function hover_glow(rootNode)
     				{
@@ -594,7 +594,6 @@ function generate_network(data)
             			var neighborNodes = fNeighbors.neighbors;
 						vis.select(neighborNodes);
     					neighborNodes = fNeighbors.neighbors;
-    					
     					vis.select(["1"]).select(neighborNodes);
     					var neighbor_chain;
     						for(var temp in neighborNodes)
