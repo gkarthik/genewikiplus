@@ -15,6 +15,10 @@ var data_CFH_disease={"ask":{"query":{"q":"[[P53]]","po":["is_associated_with_di
 
 function get_data(query_term)
 {
+	if(highlighted_option=="auto_option-1")
+	{
+		query_term=$("#omni_query").val().toUpperCase();
+	}
 	$("#omni_query").val(query_term);
 	$("#autocomplete_options").css({'display':'none'});
 	highlighted_option="auto_option-1";
