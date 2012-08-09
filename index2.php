@@ -24,12 +24,12 @@
     	<div id="hover_data"><img src="close.png" id="close_data" /></div>
     	<div id="hover_tooltip"><span id="show_data">Show data</span> | <span id="close">Close</span></div>
     	<div id="wrapper">
-    		
+<img src="loading.gif" id="loading" />    		
     		<div id="leftsidebar">
     			
     			<div id="omni_wrapper">
     			<input type="text" id="omni_query" placeholder="Enter Gene" /><input type="submit" id="omni_submit" value="Query" />
-    			
+    			<div id="autocomplete_options"></div>
     			</div>
     			<div id="export_options">
     				

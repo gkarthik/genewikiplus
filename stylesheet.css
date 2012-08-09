@@ -5,6 +5,15 @@ body {
 	font-family:Arial;
 }
 
+#loading
+{
+	margin-top: 22px;
+	margin-left: 390px;
+	position: absolute;
+	width: 30px;
+	display:none;
+}
+
 #omni_wrapper
 {
 	padding:10px;
@@ -31,6 +40,31 @@ margin-left: 10PX;
 	padding:10px;
 	width:400px;
 	font-size:20px;
+}
+
+#autocomplete_options
+{
+	position: absolute;
+	background: white;
+	min-width: 405px;
+	border-radius: 10px;
+	padding: 10px;
+	display:none;
+}
+
+.auto_option
+{
+	padding:5px;
+	margin:5px;
+	background:#ECECEC;
+	cursor:pointer;
+}
+
+.auto_option:hover
+{
+	padding:4px;
+	border:1px solid #333;
+	color:#333;
 }
 #overlay
 {
