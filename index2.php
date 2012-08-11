@@ -22,8 +22,9 @@
     
     <body>
     	<div id="hover_data"><img src="close.png" id="close_data" /></div>
-    	<div id="hover_tooltip"><span id="show_data">Show data</span> | <span id="close">Close</span></div>
+    	
     	<div id="wrapper">
+    		<div id="hover_tooltip"><span id="show_data">Show data</span> | <span id="close">Close</span></div>
 <img src="loading.gif" id="loading" />    		
     		<div id="leftsidebar">
     			
@@ -46,7 +47,11 @@
     				<ul id="view_choose_list">
     					<li id="network_view">Network</li>
     					<li id="tabular_view">Tabular</li>
+    					<li id="filter_view">Filter Network</li>
     				</ul>
+    			</div>
+    			<div id="filterview">
+    				
     			</div>
     			<div id="tabulardata"></div>
     			<div id="networkview">Query for Genes,SNPs and Diseases from the left sidebar. The network will be generated here.</div>

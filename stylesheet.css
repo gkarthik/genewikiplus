@@ -241,6 +241,43 @@ border-radius: 5px;
 	
 }
 
+#filterview
+{
+	display: block;
+position: absolute;
+background: rgba(0, 0, 0, 0.9);
+width: 1200px;
+margin-top: 60px;
+display:none;
+color:#FFF;
+z-index:100;
+}
+
+.filter_list
+{
+	float: left;
+width: 300px;
+list-style: none;
+margin: 0px;
+padding: 0px;
+}
+
+#deselect_all
+{
+	text-decoration: underline;
+color: #ECECEC;
+cursor: pointer;
+float: left;
+width: 300px;
+}
+
+.filter_option
+{
+	padding:3px;
+	margin:2px;
+	cursor:pointer;
+}
+
 #sidebar
 {
 	border-left:5px solid #59bfd3;

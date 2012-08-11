@@ -2,7 +2,10 @@
  * @author gkarthik
  */
 
-var global_vis;
+
+var vis;
+var filtered_nodes=["1"];
+var two_step=[];//Main filtering
 var global_hover="";
 var network_json=[];
 var rootwise=[];
@@ -143,7 +146,7 @@ function generate_network(data,query_term)
                     swfPath: "swf/CytoscapeWeb",
                     flashInstallerPath: "swf/playerProductInstall"
                 };
-                var vis = new org.cytoscapeweb.Visualization(div_id, options);
+                vis = new org.cytoscapeweb.Visualization(div_id, options);
                 
                   vis["customSize"] = function (data) {
     								   		var size =25+Math.round(1.5*data["weight"]);
@@ -526,7 +529,7 @@ function generate_network(data,query_term)
 					}
 				}
 				//Filtering network for Step 1 Gene->Root terms network.
-				var two_step=[];
+				two_step=[];
 				for(var temp in network_json["data"]["nodes"])
 				{
 					if(network_json["data"]["nodes"][temp]["type"]=="q"||network_json["data"]["nodes"][temp]["type"]=="category")
@@ -540,15 +543,44 @@ function generate_network(data,query_term)
 						}
 					}
 				}
+				//Generating filter options
+				var category_html="<ul id='category_filter' class='filter_list'>";
+				var disease_html="<ul id='disease_filter' class='filter_list'>";
+				var snp_html="<ul id='snp_filter' class='filter_list'>";
+				var categoryid_lib=[];
+				var diseaseid_lib=[];
+				var snpid_lib=[];
+				for(var temp in network_json["data"]["nodes"])
+				{
+					if(network_json["data"]["nodes"][temp]["type"]=="category")
+					{
+						category_html+="<li class='filter_option' id='category_option"+network_json["data"]["nodes"][temp]["id"]+"'>"+'<input type="checkbox" id="check_'+network_json["data"]["nodes"][temp]["id"]+'" />'+network_json["data"]["nodes"][temp]["label"].replace(/(\d+)/g,"").replace("()","")+"</li>";
+						categoryid_lib.push({"id":network_json["data"]["nodes"][temp]["id"],"label":network_json["data"]["nodes"][temp]["label"]});
+					}
+					else if(network_json["data"]["nodes"][temp]["type"]=="SNP")
+					{
+						snp_html+="<li class='filter_option' id='snp_option"+network_json["data"]["nodes"][temp]["id"]+"'>"+'<input type="checkbox" id="check_'+network_json["data"]["nodes"][temp]["id"]+'" />'+network_json["data"]["nodes"][temp]["label"]+"</li>";
+						snpid_lib.push({"id":network_json["data"]["nodes"][temp]["id"],"label":network_json["data"]["nodes"][temp]["label"]});
+					}
+					else if(network_json["data"]["nodes"][temp]["type"]=="disease")
+					{
+						disease_html+="<li class='filter_option' id='disease_option"+network_json["data"]["nodes"][temp]["id"]+"'>"+'<input type="checkbox" id="check_'+network_json["data"]["nodes"][temp]["id"]+'" />'+network_json["data"]["nodes"][temp]["label"]+"</li>";
+						diseaseid_lib.push({"id":network_json["data"]["nodes"][temp]["id"],"label":network_json["data"]["nodes"][temp]["label"]});
+					}
+					$("#filterview").html(category_html+"</ul>"+disease_html+"</ul>"+snp_html+"</ul>"+"<p id='deselect_all'>Remove filters</p><br /><input type='checkbox' id='neighbours_select' />Show First Neighbours");
+				}
 				var click_filter=[];
-				global_vis=vis;
+				vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
     			vis.ready(function(){
+    				filtered_nodes=["1"];
+    				neighbour_select=0;
     				vis.filter("nodes",two_step);
     				vis.addListener("click","nodes",function(evt){
     					var node=evt.target;
     					var next_step=[];
     					var category_label=[];
+    					var temp_store=[];
     					if(node.data.type=="category")
     					{
     						for(var temp in rootwise)
@@ -562,7 +594,7 @@ function generate_network(data,query_term)
     						{
     							if(network_json["data"]["edges"][temp]["source"]==node.data.id)
     							{
-    								two_step.push(network_json["data"]["edges"][temp]["target"]);
+    								temp_store.push(network_json["data"]["edges"][temp]["target"]);
     								for(var temp2 in network_json["data"]["edges"])
     								{
     									if(network_json["data"]["edges"][temp2]["source"]==network_json["data"]["edges"][temp]["target"])
@@ -582,7 +614,7 @@ function generate_network(data,query_term)
     												}
     												if(flag==1)
     												{
-    													two_step.push(network_json["data"]["edges"][temp2]["target"]);	
+    													temp_store.push(network_json["data"]["edges"][temp2]["target"]);	
     												}
     													
     											}
@@ -591,7 +623,22 @@ function generate_network(data,query_term)
     								}
     							}
     						}
-    						vis.filter("nodes",two_step);
+    						if(filtered_nodes.length==1)
+    						{
+    							for(var temp in temp_store)
+    							{
+    								two_step.push(temp_store[temp]);
+    							}
+    							vis.filter("nodes",two_step);
+    						}  												
+    						else
+    						{
+    							for(var temp in temp_store)
+    							{
+    								filtered_nodes.push(temp_store[temp]);
+    							}
+    							vis.filter("nodes",filtered_nodes);
+    						}
     						vis.zoomToFit();	
     					}
     				});
@@ -634,15 +681,31 @@ function generate_network(data,query_term)
     				vis.addListener("dblclick","nodes",function(evt){
     					var target_disease="";
     					var node=evt.target;
+    					var temp_store=[];
+    					var check_length=filtered_nodes.length;
     					if(node.data.type=="SNPcount")
     					{
-    						for(var temp in two_step)
-    						{
-    							if(two_step[temp]==node.data.id)
+    							if(check_length==1)
     							{
-    								two_step.splice(temp,1);
+    								for(var temp in two_step)
+    								{
+    									if(two_step[temp]==node.data.id)
+    									{
+    										two_step.splice(temp,1);
+    									}
+    								}	
     							}
-    						}
+    							else
+    							{
+    								for(var temp in filtered_nodes)
+    								{
+    									if(filtered_nodes[temp]==node.data.id)
+    									{
+    										filtered_nodes.splice(temp,1);
+    									}
+    								}
+    							}
+    							
     						for(var temp in network_json["data"]["edges"])
     						{
     							if(network_json["data"]["edges"][temp]["source"]==node.data.id)
@@ -653,14 +716,29 @@ function generate_network(data,query_term)
     									{
     										for(var temp3 in snp_lib[temp2]["snp_sub"])
     										{
-    											two_step.push(snp_lib[temp2]["snp_sub"][temp3]);	
+    											temp_store.push(snp_lib[temp2]["snp_sub"][temp3]);	
     										}
     									}
     								}
     							}
     						}				
     					}
-    					vis.filter("nodes",two_step);
+    					if(check_length==1)
+    					{
+    						for(var temp in temp_store)
+    						{
+    							two_step.push(temp_store[temp]);
+    						}
+    						vis.filter("nodes",two_step);
+    					}
+    					else
+    					{
+    						for(var temp in temp_store)
+    						{
+    							filtered_nodes.push(temp_store[temp]);
+    						}
+    						vis.filter("nodes",filtered_nodes);
+    					}
     					vis.zoomToFit();
     				});
     				vis.zoomToFit();
@@ -673,8 +751,8 @@ function table_gene(data)
 		var grid;
   var columns = [
     {id:"rowno",name:"No",field:"rowno"},
-    {id: "gene", name: "SNP", field: "gene", width: 200},
-    {id: "snp", name: "Disease", field: "snp", width: 200},
+    {id: "gene", name: "SNP", field: "gene", width: 500},
+    {id: "snp", name: "Disease", field: "snp", width: 500},
   ];
 
   var options = {
@@ -842,8 +920,60 @@ function hexToRgb(hex) {
 	return rgbToHex(rgb_color['red'],rgb_color['green'],rgb_color['blue']);
 }
 */
+var neighbour_select=0;
 $(document).ready(function(){
 	
+	
+	//Choosing first neighbours
+	
+	$("#neighbours_select").live('change',function(){
+		if($(this).is(':checked')==true)
+		{
+			neighbour_select=1;
+		}
+		else
+		{
+			neighbour_select=0;
+		}
+	});
+	//Deselect
+	$("#deselect_all").live('click',function(){
+	$(".filter_option input[type='checkbox']").each(function(){
+		$(this).prop("checked",false);
+		filtered_nodes=["1"];
+		vis.filter("nodes",two_step);
+		vis.zoomToFit();
+	});
+	});
+	
+	//Filtering options
+	$(".filter_option input[type='checkbox']").live('change',function(){
+		
+		if($(this).is(':checked')==true)
+		{
+			if(neighbour_select==1)
+			{
+				var fNeighbors = vis.firstNeighbors([this.id.replace("check_","")],false);
+				for(var temp in fNeighbors.neighbors)
+				{
+					filtered_nodes.push(fNeighbors.neighbors[temp]["data"]["id"]);
+				}
+			}
+			filtered_nodes.push(this.id.replace("check_",""));
+		}
+		else if($(this).is(':checked')==false)
+		{
+			for(var temp in filtered_nodes)
+			{
+				if(filtered_nodes[temp]==this.id.replace("check_",""))
+				{
+					filtered_nodes.splice(temp,1);
+				}
+			}
+		}
+		vis.filter("nodes",filtered_nodes);
+		vis.zoomToFit();
+	});
 	$(".auto_option").live('mouseover',function(){
 		highlighted_option=this.id;
 		$(this).css({'padding':'4px','border':'1px solid #333','color':'#333'});
@@ -1061,30 +1191,46 @@ $("#export_options ul li").click(function(){
 	var id=this.id;
 	if(id=="pdf")
 		{
-			global_vis.exportNetwork('pdf', 'export.php?type=pdf');
+			vis.exportNetwork('pdf', 'export.php?type=pdf');
 		}
 		else if(id=="png")
 		{
-			global_vis.exportNetwork('png', 'export.php?type=png');
+			vis.exportNetwork('png', 'export.php?type=png');
 		}
 		else if(id=="txt")
 		{
-			global_vis.exportNetwork('txt', 'export.php?type=txt');
+			vis.exportNetwork('txt', 'export.php?type=txt');
 		}
 		else if(id=="svg")
 		{
-			global_vis.exportNetwork('svg', 'export.php?type=svg');
+			vis.exportNetwork('svg', 'export.php?type=svg');
 		}
 });
 
 $("#network_view").click(function(){
 	$("#tabulardata").css({'display':'none'});
-	$("#networkview").fadeIn();
+	$("#networkview").css({'display':'block'});
 });
 
 $("#tabular_view").click(function(){
 	$("#networkview").css({'display':'none'});
-	$("#tabulardata").fadeIn();
+	$("#tabulardata").css({'display':'block'});
+});
+var flag_filter=0;
+$("#filter_view").click(function(){
+	if(flag_filter==0)
+	{
+		$("#filterview").css({'display':'block'});
+	$(this).html("Close");
+	flag_filter=1;	
+	}
+	else
+	{
+		$("#filterview").css({'display':'none'});
+	$(this).html("Filter Network");
+	flag_filter=0;
+	}
+	
 });
 
 });
