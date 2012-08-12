@@ -569,12 +569,18 @@ function generate_network(data,query_term)
 					}
 					$("#filterview").html(category_html+"</ul>"+disease_html+"</ul>"+snp_html+"</ul>"+"<p id='deselect_all'>Remove filters</p><br /><input type='checkbox' id='neighbours_select' />Show First Neighbours");
 				}
+				filtered_nodes=["1"];
+    				neighbour_select=0;
+				for(var temp in two_step)
+				{
+					$("#check_"+two_step[temp]).prop("checked",true);
+					filtered_nodes.push(two_step[temp]);
+				}
+				
 				var click_filter=[];
 				vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
     			vis.ready(function(){
-    				filtered_nodes=["1"];
-    				neighbour_select=0;
     				vis.filter("nodes",two_step);
     				vis.addListener("click","nodes",function(evt){
     					var node=evt.target;
