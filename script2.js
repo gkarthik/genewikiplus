@@ -21,10 +21,15 @@ function get_data(query_term)
 	{
 		query_term=$("#omni_query").val().toUpperCase();
 	}
+	if(query_term=="")
+	{
+		$("#networkview").html("Please enter query term.");
+		return false;
+	}
 	$("#omni_query").val(query_term);
 	$("#autocomplete_options").css({'display':'none'});
 	highlighted_option="auto_option-1";
-	$("#networkview").html("Loading network on gene, "+query_term);
+	$("#networkview").html("Loading network on gene "+query_term+" ...");
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+query_term+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
 		//var data=data_CFH;
 		$("#view_choose").fadeIn();
@@ -626,6 +631,7 @@ function generate_network(data,query_term)
     							for(var temp in temp_store)
     							{
     								two_step.push(temp_store[temp]);
+    								$("#check_"+temp_store[temp]).prop("checked",true);
     							}
     							vis.filter("nodes",two_step);
     						vis.zoomToFit();	
@@ -704,6 +710,7 @@ function generate_network(data,query_term)
     						for(var temp in temp_store)
     						{
     							two_step.push(temp_store[temp]);
+    							$("#check_"+temp_store[temp]).prop("checked",true);
     						}
     						vis.filter("nodes",two_step);
     					
