@@ -33,7 +33,7 @@
     			<div id="autocomplete_options"></div>
     			</div>
     			<div id="export_options">
-    				
+    				<p style="float:left;margin: 0px;margin-top: 10px;margin-right: 10px;">Export Network</p>
     				<ul>
     					<li id="pdf">PDF</li>
     					<li id="png">PNG</li>

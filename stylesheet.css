@@ -25,21 +25,24 @@ body {
 
 #omni_submit
 {
-background: #ECECEC;
-border: 2px solid #ECECEC;
 cursor: pointer;
 padding: 10px;
 font-size: 20px;
-border-radius: 10px;
-margin-left: 10PX;
+border-radius: 0px 10px 10px 0px;
+margin-left: 0px;
+border: 0px;
+background: white;
+color: #666;
+border-left: 2px solid #666;
 }
 
 #omni_query
 {
-	border-radius:10px;
-	padding:10px;
-	width:400px;
-	font-size:20px;
+padding: 10px;
+width: 400px;
+font-size: 20px;
+border: 0px;	
+border-radius: 10px 0px 0px 10px;
 }
 
 #autocomplete_options
@@ -181,6 +184,7 @@ border-radius: 5px;
 	height:1000px;
 	padding:10px;
 	background:#ABCFD6;
+	margin-bottom:30px;
 }
 
 #networkview2
