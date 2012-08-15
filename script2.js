@@ -4,7 +4,6 @@
 
 
 var vis;
-var filtered_nodes=["1"];
 var two_step=[];//Main filtering
 var global_hover="";
 var network_json=[];
@@ -569,14 +568,9 @@ function generate_network(data,query_term)
 					}
 					$("#filterview").html(category_html+"</ul>"+disease_html+"</ul>"+snp_html+"</ul>"+"<p id='deselect_all'>Deselect All</p><br /><input type='checkbox' id='neighbours_select' />Show First Neighbours");
 				}
-				filtered_nodes=["1"];
+			
     				neighbour_select=0;
-				for(var temp in two_step)
-				{
-					$("#check_"+two_step[temp]).prop("checked",true);
-					filtered_nodes.push(two_step[temp]);
-				}
-				
+			
 				var click_filter=[];
 				vis=vis;
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
@@ -677,7 +671,6 @@ function generate_network(data,query_term)
     					var target_disease="";
     					var node=evt.target;
     					var temp_store=[];
-    					var check_length=filtered_nodes.length;
     					if(node.data.type=="SNPcount")
     					{
     							for(var temp in two_step)
@@ -932,6 +925,7 @@ $(document).ready(function(){
 				for(var temp in fNeighbors.neighbors)
 				{
 					two_step.push(fNeighbors.neighbors[temp]["data"]["id"]);
+					$('#check_'+fNeighbors.neighbors[temp]["data"]["id"]).prop("checked",true);
 				}
 			}
 			two_step.push(this.id.replace("check_",""));
