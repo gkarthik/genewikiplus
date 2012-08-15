@@ -567,7 +567,7 @@ function generate_network(data,query_term)
 						disease_html+="<li class='filter_option' id='disease_option"+network_json["data"]["nodes"][temp]["id"]+"'>"+'<input type="checkbox" id="check_'+network_json["data"]["nodes"][temp]["id"]+'" />'+network_json["data"]["nodes"][temp]["label"]+"</li>";
 						diseaseid_lib.push({"id":network_json["data"]["nodes"][temp]["id"],"label":network_json["data"]["nodes"][temp]["label"]});
 					}
-					$("#filterview").html(category_html+"</ul>"+disease_html+"</ul>"+snp_html+"</ul>"+"<p id='deselect_all'>Remove filters</p><br /><input type='checkbox' id='neighbours_select' />Show First Neighbours");
+					$("#filterview").html(category_html+"</ul>"+disease_html+"</ul>"+snp_html+"</ul>"+"<p id='deselect_all'>Deselect All</p><br /><input type='checkbox' id='neighbours_select' />Show First Neighbours");
 				}
 				filtered_nodes=["1"];
     				neighbour_select=0;
@@ -629,22 +629,11 @@ function generate_network(data,query_term)
     								}
     							}
     						}
-    						if(filtered_nodes.length==1)
-    						{
     							for(var temp in temp_store)
     							{
     								two_step.push(temp_store[temp]);
     							}
     							vis.filter("nodes",two_step);
-    						}  												
-    						else
-    						{
-    							for(var temp in temp_store)
-    							{
-    								filtered_nodes.push(temp_store[temp]);
-    							}
-    							vis.filter("nodes",filtered_nodes);
-    						}
     						vis.zoomToFit();	
     					}
     				});
@@ -691,26 +680,15 @@ function generate_network(data,query_term)
     					var check_length=filtered_nodes.length;
     					if(node.data.type=="SNPcount")
     					{
-    							if(check_length==1)
-    							{
-    								for(var temp in two_step)
+    							for(var temp in two_step)
     								{
     									if(two_step[temp]==node.data.id)
     									{
     										two_step.splice(temp,1);
     									}
     								}	
-    							}
-    							else
-    							{
-    								for(var temp in filtered_nodes)
-    								{
-    									if(filtered_nodes[temp]==node.data.id)
-    									{
-    										filtered_nodes.splice(temp,1);
-    									}
-    								}
-    							}
+    							
+    							
     							
     						for(var temp in network_json["data"]["edges"])
     						{
@@ -729,22 +707,13 @@ function generate_network(data,query_term)
     							}
     						}				
     					}
-    					if(check_length==1)
-    					{
+    					
     						for(var temp in temp_store)
     						{
     							two_step.push(temp_store[temp]);
     						}
     						vis.filter("nodes",two_step);
-    					}
-    					else
-    					{
-    						for(var temp in temp_store)
-    						{
-    							filtered_nodes.push(temp_store[temp]);
-    						}
-    						vis.filter("nodes",filtered_nodes);
-    					}
+    					
     					vis.zoomToFit();
     				});
     				vis.zoomToFit();
@@ -946,7 +915,7 @@ $(document).ready(function(){
 	$("#deselect_all").live('click',function(){
 	$(".filter_option input[type='checkbox']").each(function(){
 		$(this).prop("checked",false);
-		filtered_nodes=["1"];
+		two_step=["1"];
 		vis.filter("nodes",two_step);
 		vis.zoomToFit();
 	});
@@ -962,22 +931,22 @@ $(document).ready(function(){
 				var fNeighbors = vis.firstNeighbors([this.id.replace("check_","")],false);
 				for(var temp in fNeighbors.neighbors)
 				{
-					filtered_nodes.push(fNeighbors.neighbors[temp]["data"]["id"]);
+					two_step.push(fNeighbors.neighbors[temp]["data"]["id"]);
 				}
 			}
-			filtered_nodes.push(this.id.replace("check_",""));
+			two_step.push(this.id.replace("check_",""));
 		}
 		else if($(this).is(':checked')==false)
 		{
-			for(var temp in filtered_nodes)
+			for(var temp in two_step)
 			{
-				if(filtered_nodes[temp]==this.id.replace("check_",""))
+				if(two_step[temp]==this.id.replace("check_",""))
 				{
-					filtered_nodes.splice(temp,1);
+					two_step.splice(temp,1);
 				}
 			}
 		}
-		vis.filter("nodes",filtered_nodes);
+		vis.filter("nodes",two_step);
 		vis.zoomToFit();
 	});
 	$(".auto_option").live('mouseover',function(){
@@ -1226,8 +1195,14 @@ var flag_filter=0;
 $("#filter_view").click(function(){
 	if(flag_filter==0)
 	{
+	
 		$("#filterview").css({'display':'block'});
 	$(this).html("Close");
+	for(var temp in two_step)
+	{
+		$("#check_"+two_step[temp]).prop("checked",true);
+		console.log("#check_"+two_step[temp]);
+	}
 	flag_filter=1;	
 	}
 	else
