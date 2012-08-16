@@ -235,6 +235,7 @@ border-radius: 5px;
 	border-radius: 5px;
 	box-shadow: 0px 0px 10px 0px black;
 	display:none;
+	z-index:10000;
 }
 
 #tabulardata
