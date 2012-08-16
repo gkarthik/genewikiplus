@@ -23,10 +23,16 @@ var data_CFH_disease={"ask":{"query":{"q":"[[P53]]","po":["is_associated_with_di
  */
 function get_data(query_term)
 {
+	/*
+	 * Converting to caps to retrieve data from Gene Wiki Plus
+	 */
 	if(highlighted_option=="auto_option-1")
 	{
 		query_term=$("#omni_query").val().toUpperCase();
 	}
+	/*
+	 * If the text box is left empty throw error
+	 */
 	if(query_term=="")
 	{
 		$("#networkview").html("Please enter query term.");
@@ -36,6 +42,10 @@ function get_data(query_term)
 	$("#autocomplete_options").css({'display':'none'});
 	highlighted_option="auto_option-1";
 	$("#networkview").html("Loading network on gene "+query_term+" ...");
+	/*
+	 * Retrieving data from Gene Wiki Plus
+	 * Example Query syntax - http://genewikiplus.org/api.php?action=ask&q=[[in_gene::CDK2]]&po=is+associated+with+disease&format=json&callback=?"
+	 */
 	$.getJSON("http://genewikiplus.org/api.php?action=ask&q=[[in_gene::"+query_term+"]]&po=is+associated+with+disease&format=json&callback=?", function(data) {
 		//var data=data_CFH;
 		$("#view_choose").fadeIn();
@@ -61,6 +71,9 @@ function highlight(id)
  */
 function generate_network(data,query_term)
 {
+	/*
+	 * For the cytoscaeWeb variable
+	 */
 	var div_id = "networkview";
                 network_json = {
                         dataSchema: {
@@ -106,11 +119,17 @@ function generate_network(data,query_term)
                 network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["query"]["q"].replace("[[in_gene::","").replace("]]",""),type:"q"});
                 counter++;
                 var secondary_centre;
-                
+                /*
+                 * If non-relevant term is entered.
+                 */
                 if(data["ask"]["results"]==undefined)
                 {
-                	$("#networkview").html("The Gene supplied doesn't have any associated disease in our database.")
+                	$("#networkview").html("The Gene supplied doesn't have any associated disease in our database.");
+                	return false;
                 }
+                /*
+                 * Initializing network_json with disease and SNP nodes
+                 */
                 for(var temp in data["ask"]["results"]["items"])
                 {
                 	network_json["data"]["nodes"].push({id:String(counter),label:data["ask"]["results"]["items"][temp]["title"]["mTextform"],type:"SNP"});
@@ -139,7 +158,9 @@ function generate_network(data,query_term)
 						}
 					}
                 }
-                
+                /*
+                 * Layout of the the network
+                 */
                      var layout = {
   								  name:    "ForceDirected",
   								  options:{
@@ -164,7 +185,9 @@ function generate_network(data,query_term)
                     flashInstallerPath: "swf/playerProductInstall"
                 };
                 vis = new org.cytoscapeweb.Visualization(div_id, options);
-                
+                /*
+                 * Custom Mappers for Cytoscape
+                 */
                   vis["customSize"] = function (data) {
     								   		var size =25+Math.round(1.5*data["weight"]);
 											return size;	
@@ -222,7 +245,10 @@ function generate_network(data,query_term)
     								   }
     								   				
 									   };
-									   var counter_per_node=0;
+				/*
+				 * Ensuring no duplicate nodes in the network
+				 */
+				var counter_per_node=0;
                 var counter_for_deletion=0;
                 var repeated_node="";
                 var unique_node="";
@@ -248,7 +274,7 @@ function generate_network(data,query_term)
                 			
                 			if(typeof network_json["data"]["nodes"][delete_temp]["id"] === "undefined")
                 			{
-                				
+                				//Do nothing | Not relevant
                 			}	
                 			else
                 			{                			
@@ -257,7 +283,6 @@ function generate_network(data,query_term)
                 			counter_for_deletion++;	                			
                 			if(counter_for_deletion>1)
                 			{
-                				//delete [delete_temp]["label"]="To be deleted";
                 				for(var delete_edge in network_json["data"]["edges"])
                 				{            					
                 					if(network_json["data"]["nodes"][delete_temp]["id"]==network_json["data"]["edges"][delete_edge]["target"])
@@ -267,15 +292,15 @@ function generate_network(data,query_term)
                 				}
                 				network_json["data"]["nodes"].splice(delete_temp, 1);	                				
                 			}
-                			
                 			}
                 			}	
                 		}
-                		
                 	}
                 	
                 }
-				
+				/*
+				 * Genrating snp_lib, a dictionary storing SNps, disease wise.
+				 */
 				var to_display=[];
 				var node_snp=[];
 				var node_counter=0;
@@ -327,6 +352,9 @@ function generate_network(data,query_term)
 						}
 					}
 				}	
+				/*
+				 * Code to retireve all diseases assocaited with the gene not just the ones with related SNPs.
+				 */
                 $.getJSON("http://genewikiplus.org/api.php?action=ask&q=[["+query_term+"]]&po=is_associated_with_disease&format=json&callback=?", function(data) {
 				//data=data_CFH_disease;
 				var flag_disease=0;
@@ -377,7 +405,9 @@ function generate_network(data,query_term)
 								edgecounter++;
 						}					
 				}
-				//Making nodes of parent categories and making a library, "rootwise" of root categoires. 
+				/*
+				 * Making nodes of parent categories and making a library, "rootwise" of root categoires.
+				 */ 
 				rootwise=[];
 				var repeat_flag=0;
 				var current_root;
@@ -591,9 +621,16 @@ function generate_network(data,query_term)
 			
 				var click_filter=[];
 				vis=vis;
+				/*
+				 * Drawing the network
+				 */
                 vis.draw({ network: network_json, visualStyle: visual_style, layout:layout });
     			vis.ready(function(){
-    				vis.filter("nodes",two_step);
+    				/*
+    				 * Functions to be initialized once the network is generated
+    				 */
+    				
+    				vis.filter("nodes",two_step);//Showing the filtered portion of the network for greater utility
     				vis.addListener("click","nodes",function(evt){
     					var node=evt.target;
     					var next_step=[];
@@ -650,13 +687,18 @@ function generate_network(data,query_term)
     						vis.zoomToFit();	
     					}
     				});
-    				
+    				/*
+    				 * Function to show tooltip on hover of nodes
+    				 */
     				function tooltip_show(rootNode)
     				{
     					global_hover={id:rootNode.data.id,label:rootNode.data.label,category:rootNode.data.type};
     					$("#hover_tooltip").css({'left':rootNode.x+60,'top':rootNode.y+161});
     					$("#hover_tooltip").css({'display':'block'});
 					}
+					/*
+					 * function to show glow around the immediate neighbors of a node
+					 */
     				function hover_glow(rootNode)
     				{
     					hover_select=0;
@@ -778,7 +820,7 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
     grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
 	}
 
-var neighbour_select=0;
+var neighbour_select=0;//Variable showing if first neighbours are to be shown on choosing a filter option
 $(document).ready(function(){
 	//Choosing first neighbours
 	$("#neighbours_select").live('change',function(){
@@ -791,7 +833,7 @@ $(document).ready(function(){
 			neighbour_select=0;
 		}
 	});
-	//Deselect
+	//Deselect all option
 	$("#deselect_all").live('click',function(){
 	$(".filter_option input[type='checkbox']").each(function(){
 		$(this).prop("checked",false);
@@ -803,7 +845,6 @@ $(document).ready(function(){
 	
 	//Filtering options
 	$(".filter_option input[type='checkbox']").live('change',function(){
-		
 		if($(this).is(':checked')==true)
 		{
 			if(neighbour_select==1)
@@ -841,11 +882,11 @@ $(document).ready(function(){
 	});
 //Autocomplete and keyboard functions
 $("#omni_query").keyup(function(event) {
-	if(event.which==13 )
+	if(event.which==13 )//Enter key
 	{
 		get_data($("#"+highlighted_option+" .option_symbol").html());
 	}
-	else if(event.which==38)
+	else if(event.which==38)//Down key
 	{
 		event.preventDefault();
 		highlighted_option=highlighted_option.replace("auto_option","");
@@ -858,7 +899,7 @@ $("#omni_query").keyup(function(event) {
 		highlighted_option="auto_option"+String(option);
 		highlight(highlighted_option);
 	}
-	else if(event.which==40)
+	else if(event.which==40)//Up key
 	{
 		event.preventDefault();
 		highlighted_option=highlighted_option.replace("auto_option","");
@@ -871,7 +912,7 @@ $("#omni_query").keyup(function(event) {
 		highlighted_option="auto_option"+String(option);
 		highlight(highlighted_option);
 	}
-	else if(event.which==27)
+	else if(event.which==27)//Escape Key
 	{
 		event.preventDefault();
 		$("#autocomplete_options").html("");
@@ -927,12 +968,15 @@ $("#omni_submit").click(function(){
 	}	
 });
 
+/*
+ * Closing the tooltip
+ */
 $("#close").click(function(){
 	$("#hover_tooltip").fadeOut();
 });	
 
 /*
- * On click tooltip, Show Data
+ * On click tooltip, Show Data. Generating Data to be shown from library variables rootwise and snp_lib
  */
 $("#show_data").click(function(){
 	$("#hover_data").html('<img src="close.png" id="close_data" />');
@@ -1047,10 +1091,16 @@ $("#show_data").click(function(){
 	$("#hover_data").css({'display':'block'});
 });
 
+/*
+ * Closing hover data bubble
+ */
 $("#close_data").live('click',function(){
 	$("#hover_data").css({'display':'none'});
 });
 
+/*
+ * Options to exprot netowrk as png,pdf,svg and txt
+ */
 $("#export_options ul li").click(function(){
 	var id=this.id;
 	if(id=="pdf")
@@ -1071,6 +1121,9 @@ $("#export_options ul li").click(function(){
 		}
 });
 
+/*
+ * Menu options - Netowork, Tabular and Filter options view
+ */
 $("#network_view").click(function(){
 	$("#tabulardata").css({'display':'none'});
 	$("#networkview").css({'display':'block'});
