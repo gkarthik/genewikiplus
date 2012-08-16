@@ -89,13 +89,13 @@ function generate_network(data,query_term)
                 var sizeMapper = { attrName: "weight",  minValue: 10, maxValue: 100, minAttrValue:10 };
                 var visual_style = {
                     global: {
-                        backgroundColor: "#ABCFD6"
+                        backgroundColor: "#FFFFFF"
                     },
                     nodes: {
                     	color:{ customMapper: { functionName: "customColor" }},
                         shape: { customMapper: { functionName: "customShape" }},
                         borderWidth: 3,
-                        borderColor: "#ffffff",
+                        borderColor: "#666666",
                         labelFontColor:{ customMapper: { functionName: "customLabelColor" }},
                         opacity : 1, 
                         labelFontSize : { customMapper: { functionName: "customSize" } },
@@ -1125,14 +1125,19 @@ $("#export_options ul li").click(function(){
  * Menu options - Netowork, Tabular and Filter options view
  */
 $("#network_view").click(function(){
+	$("#view_choose_list li").css({'background':'#ECECEC','color':'#000'});
+	$(this).css({'background':'#000','color':'#FFF'});
 	$("#tabulardata").css({'display':'none'});
 	$("#networkview").css({'display':'block'});
 });
 
 $("#tabular_view").click(function(){
+	$("#view_choose_list li").css({'background':'#ECECEC','color':'#000'});
+	$(this).css({'background':'#000','color':'#FFF'});
 	$("#networkview").css({'display':'none'});
 	$("#tabulardata").css({'display':'block'});
 });
+
 var flag_filter=0;
 $("#filter_view").click(function(){
 	if(flag_filter==0)

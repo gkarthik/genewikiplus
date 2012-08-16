@@ -1,5 +1,5 @@
 body {
-	background:#59bfd3;	
+	background:#FFF;	
 	margin:0px;
 	padding:0px;
 	font-family:Arial;
@@ -33,7 +33,7 @@ margin-left: 0px;
 border: 0px;
 background: white;
 color: #666;
-border-left: 2px solid #666;
+border: 1px solid #000;	
 }
 
 #omni_query
@@ -41,14 +41,14 @@ border-left: 2px solid #666;
 padding: 10px;
 width: 400px;
 font-size: 20px;
-border: 0px;	
+border: 1px solid #000;	
 border-radius: 10px 0px 0px 10px;
 }
 
 #autocomplete_options
 {
 	position: absolute;
-	background: white;
+	background: #666666;
 	min-width: 405px;
 	border-radius: 10px;
 	padding: 10px;
@@ -84,7 +84,7 @@ border-radius: 10px 0px 0px 10px;
 	display:none;
 	float:left;
 	width:400px;
-	
+	margin-top:5px;
 }
 #export_options ul
 {
@@ -99,15 +99,16 @@ padding: 5px;
 margin: 5px;
 cursor: pointer;
 float: left;
-background: white;
+background: #ECECEC;
 border-radius: 5px;
 }
 
 #export_options ul li:hover
 {
-	background:#CFCFCF;
-
+	background:#333;
+	color:#FFF;
 }
+
 #litebox
 {
 	display:none;
@@ -133,7 +134,6 @@ border-radius: 5px;
 {
 	width:1180px;
 	float:left;
-	background:#59bfd3;
 	padding:10px;
 }
 
@@ -163,11 +163,12 @@ border-radius: 5px;
 #view_choose ul li
 {
 	float: left;
-	margin: 10px;
+	margin:0px 5px;
 	cursor: pointer;
 	background: white;
 	padding: 10px;
-	border-radius: 10px;
+	border-radius: 0px;
+	background:#ECECEC;
 }
 
 #view_choose ul li:hover
@@ -176,15 +177,16 @@ border-radius: 5px;
 	color:#FFF;
 }
 
+
 #networkview
-{
-	
+{	
 	float:left;
 	width:1180px;
 	height:1000px;
-	padding:10px;
-	background:#ABCFD6;
+	padding:9px;
+	background:#FFF;
 	margin-bottom:30px;
+	border:1px solid #000;
 }
 
 #networkview2
@@ -251,7 +253,7 @@ border-radius: 5px;
 position: absolute;
 background: rgba(0, 0, 0, 0.9);
 width: 1200px;
-margin-top: 60px;
+margin-top: 40px;
 display:none;
 color:#FFF;
 z-index:100;
@@ -279,7 +281,6 @@ width: 300px;
 {
 	padding:3px;
 	margin:2px;
-	cursor:pointer;
 }
 
 #sidebar
