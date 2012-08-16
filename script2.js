@@ -693,7 +693,7 @@ function generate_network(data,query_term)
     				function tooltip_show(rootNode)
     				{
     					global_hover={id:rootNode.data.id,label:rootNode.data.label,category:rootNode.data.type};
-    					$("#hover_tooltip").css({'left':rootNode.x+60,'top':rootNode.y+161});
+    					$("#hover_tooltip").css({'left':rootNode.x+60,'top':rootNode.y+141});
     					$("#hover_tooltip").css({'display':'block'});
 					}
 					/*
