@@ -1,7 +1,8 @@
 #Description
 
 This is a project to visualize networks out of gene,disease and snp data obtained from semantic queries executed on the database at Gene Wiki+.
-Once a gene term is supplied, data from Gene Wiki Plus is retrieved and a Gene->Root_disease_term->SNP->Disease network is generated. For further convenience and utility, filter options are provided to enable the user to browse through the net at their own convenience. For further reference, export options into png,pdf,svg and txt are provided.
+Once a gene term is supplied, data from Gene Wiki Plus is retrieved and a Gene->Root_disease_term->SNP->Disease network is generated. For further convenience and utility, filter options are provided to enable the user to browse through the net at their own convenience. 
+
 ######	
 Browsing the network itself is broken down into two steps.
 
@@ -34,4 +35,6 @@ Escape - Closes the autocomplete drop down.
 Pan - Moving around the network by click and drag
 
 Zoom - By default the network zooms in and out to fit the current nodes on display. But further zooming can be done by clicking on the '+' and the '-' keys. And the double arrow key can be clciked to fit the network perfectly into the box.
+
+Export Options - Also the network on display at any point can be exported into .png, .pdf, .svg and .txt formats by clicking on the export options above the network.
 
