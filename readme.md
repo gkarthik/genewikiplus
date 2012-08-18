@@ -18,23 +18,23 @@ Further more there are filter options with options to display only selected node
 
 The interface includes some keyboard navigation:
 
-###Up### - Moving up the autocomplete options.
+###Up# - Moving up the autocomplete options.
 
-###Down### - Moving down the autocomplete options.
+###Down# - Moving down the autocomplete options.
 
-###Enter### - The highlighted autocomplete option is queried upon. If no option is highlighted, the value in the text box is queried upon.
+###Enter# - The highlighted autocomplete option is queried upon. If no option is highlighted, the value in the text box is queried upon.
 
-###Escape### - Closes the autocomplete drop down.
+###Escape# - Closes the autocomplete drop down.
 
 #Network Options
 
-###Pan### - Moving around the network by click and drag
+###Pan# - Moving around the network by click and drag
 
-###Zoom### - By default the network zooms in and out to fit the current nodes on display. But further zooming can be done by clicking on the '+' and the '-' keys. And the double arrow key can be clciked to fit the network perfectly into the box.
+###Zoom# - By default the network zooms in and out to fit the current nodes on display. But further zooming can be done by clicking on the '+' and the '-' keys. And the double arrow key can be clciked to fit the network perfectly into the box.
 
-###Export Options### - Also the network on display at any point can be exported into .png, .pdf, .svg and .txt formats by clicking on the export options above the network.
+###Export Options# - Also the network on display at any point can be exported into .png, .pdf, .svg and .txt formats by clicking on the export options above the network.
 
-###Hover tooltip### - On hovering over a node, a tooltip appears which on clicked will show the data about that node in a textual format with back links to Gene Wiki Plus.
+###Hover tooltip# - On hovering over a node, a tooltip appears which on clicked will show the data about that node in a textual format with back links to Gene Wiki Plus.
 
 #Libraries Used
 We are currently getting data from gene wiki+ by employing JSONp and cross domain ajax requests. jQuery(<http://jquery.com/>), the popular javascript framework is being sued to retrieve data as well as to manipulate DOM elements.
