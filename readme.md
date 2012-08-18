@@ -11,6 +11,10 @@ Browsing the network itself is broken down into two steps.
 
 Data arranged in a tabular form is also shown for reference purposes. 
 
+Auto Complete from http://mygene.info/
+
+![Alt text](/readme_images/dropdown.jpg "Auto Complete")
+
 #Keyboard support
 
 The interface includes some keyboard navigation:
