@@ -13,7 +13,7 @@ Data arranged in a tabular form is also shown for reference purposes.
 
 Auto Complete from http://mygene.info/
 
-![Alt text](readme_images/dropdown.jpg "Auto Complete")
+![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/dropdown.jpg "Auto Complete")
 
 #Keyboard support
 
