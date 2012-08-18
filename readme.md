@@ -1,6 +1,6 @@
 #Home
 
-<http://http://gkarthik.net/csb/genewikiplus/index2.php>
+<http://gkarthik.net/csb/genewikiplus/index2.php>
 
 #Description
 
