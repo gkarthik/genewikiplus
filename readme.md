@@ -50,16 +50,21 @@ Auto Complete from http://mygene.info/
 ![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/dropdown.jpg "Auto Complete") 
 
 Network loaded with export options
+
 ![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/loaded_network.jpg "Loaded network")
 
 Network load with only parent nodes
+
 ![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/loadenetwork1.jpg "Loaded network with parent nodes")
 
 Network after one click on all parent nodes
+
 ![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/loadenetwork2.jpg "Loaded network with all nodes")
 
 Filter Options
+
 ![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/loaded_network_filter.jpg "Loaded network with filter options")
 
 Tabular data
+
 ![Alt text](http://gkarthik.net/csb/genewikiplus/readme_images/tabular.jpg "Tabular data")
