@@ -18,8 +18,10 @@ var data_CFH_disease={"ask":{"query":{"q":"[[P53]]","po":["is_associated_with_di
 
 /*
  Function get_data(), to retrieve data from Gene Wiki Plus
+ returns true if query returned successfully
  Example, 
  get_data("CDK2");
+ 
  */
 function get_data(query_term)
 {
@@ -53,21 +55,25 @@ function get_data(query_term)
 		color_schemeedit=[{"bg":"#FFF200","fg":"#6600C4"},{"bg":"#0073BD","fg":"#FF8E00"},{"bg":"#D4FA00","fg":"#B300CD"},{"bg":"#FF7F00","fg":"#0096BA"},{"bg":"#A63A00","fg":"#FFA473"},{"bg":"#A4008","fg":"#78EF6B"},{"bg":"#A300C","fg":"#7EEF6C"},{"bg":"#98A400","fg":"#F3FE72"},{"bg":"#5F007E","fg":"#EAFC00"},{"bg":"#FFDC40","fg":"#2A00C6"},{"bg":"#FF9973","fg":"#008146"}];
 		generate_network(data,query_term);
 		table_gene(data);
+		return true;
 	});		
 }
 
 /*
  Function to highlight terms in auto complete download
+ returns true if option highlighted successfully
  highlight("auto_option2") - Highlights term 2 in auto complete drop down 
  */
 function highlight(id)
 {
 	$(".auto_option").css({'padding':'5px','border':'0px','color':'#000'});
 	$("#"+id).css({'padding':'4px','border':'1px solid #333','color':'#333'});
+	return true;
 }
 
 /*
  * Function to generate network and initialize global CytoscapeWeb variable vis
+ * returns true if network constructed successfully
  */
 function generate_network(data,query_term)
 {
@@ -774,10 +780,12 @@ function generate_network(data,query_term)
     				vis.zoomToFit();
     					});	
 			});
+			return true;
 }
 
 /*
  * Function to generate tabulat data using Slick Grid
+ * returns true if table generated successfully
  */
 function table_gene(data)
 	{
@@ -818,6 +826,7 @@ for(var temp2 in data["ask"]["results"]["items"][temp]["properties"]["is_associa
       counter++;
     }
     grid = new Slick.Grid("#tabulardata", data_for_grid, columns, options);
+    return true;
 	}
 
 var neighbour_select=0;//Variable showing if first neighbours are to be shown on choosing a filter option
