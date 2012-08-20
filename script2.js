@@ -67,10 +67,10 @@ function get_data(query_term)
 function highlight(id)
 {
 	$(".auto_option").css({'padding':'5px','border':'0px','color':'#000'});
-	if($("#"+id))
+	var sel = $("#"+id);
+	if(sel)
 	{
-		$("#"+id).css({'padding':'4px','border':'1px solid #333','color':'#333'});
-		console.log(true);
+		sel.css({'padding':'4px','border':'1px solid #333','color':'#333'});
 		return true;	
 	}
 	else return false;
