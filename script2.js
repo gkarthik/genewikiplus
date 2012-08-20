@@ -67,8 +67,13 @@ function get_data(query_term)
 function highlight(id)
 {
 	$(".auto_option").css({'padding':'5px','border':'0px','color':'#000'});
-	$("#"+id).css({'padding':'4px','border':'1px solid #333','color':'#333'});
-	return true;
+	if($("#"+id))
+	{
+		$("#"+id).css({'padding':'4px','border':'1px solid #333','color':'#333'});
+		console.log(true);
+		return true;	
+	}
+	else return false;
 }
 
 /*
